@@ -1,0 +1,15 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/RestoClerkInventory/config
+/packages/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1
+/RestoClerkInventory.sln
+/RestoClerkInventory/bin
+/RestoClerkInventory/obj
+/RestoClerkInventory/Web.config
+/RestoClerkInventory/Web.Debug.config
+/RestoClerkInventory/Web.Release.config
+/RestoClerkInventory/packages.config
+/RestoClerkInventory/RestoClerkInventory.csproj
+/RestoClerkInventory/RestoClerkInventory.csproj.user
