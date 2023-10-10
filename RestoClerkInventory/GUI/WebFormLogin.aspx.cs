@@ -72,8 +72,8 @@ namespace RestoClerkInventory.GUI
                     Response.Redirect("WebFormAdmin.aspx");
                 //if (user.Position.ToString() == Position.Manager.ToString())
                 //    // Form Manager
-                //if (user.Position.ToString() == Position.Staff.ToString())
-                //    // Form Staff
+                if (user.Position.ToString() == Position.Staff.ToString())
+                    Response.Redirect("WebFormInventoryStaff.aspx");
             }
 
         }
