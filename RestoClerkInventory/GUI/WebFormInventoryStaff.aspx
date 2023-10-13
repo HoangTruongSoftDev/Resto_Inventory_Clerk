@@ -137,10 +137,15 @@
                     <td class="auto-style7">
                         <asp:Button ID="ButtonConsume" runat="server" Text="Commit" OnClick="ButtonConsume_Click" />
                     </td>
-                    <td>&nbsp;</td>
+                    <td>
+                        &nbsp;</td>
                 </tr>
                 <tr>
-                    <td class="auto-style18" colspan="3"></td>
+                    <td class="auto-style18">&nbsp;</td>
+                    <td class="auto-style18">&nbsp;</td>
+                    <td class="auto-style18">
+                        <asp:Button ID="ButtonExit" runat="server" Text="Exit" OnClick="ButtonExit_Click" Width="67px" />
+                    </td>
                     <td class="auto-style19"></td>
                 </tr>
                 <tr>
@@ -154,7 +159,7 @@
 
                     </td>
                     <td>
-                        <asp:ImageButton ID="ImageButtonSearch" Style="width: 18px; height: 18px" runat="server" ImageUrl="../img/magnifying-glass.jfif" OnClick="ImageButtonSearch_Click" />
+                        <asp:ImageButton ID="ImageButtonSearch" Style="height: 18px" runat="server" ImageUrl="../img/magnifying-glass.jfif" OnClick="ImageButtonSearch_Click" />
                     </td>
                 </tr>
                 <tr>

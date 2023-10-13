@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Windows.Forms;
 
 namespace RestoClerkInventory.GUI
 {
@@ -20,6 +21,7 @@ namespace RestoClerkInventory.GUI
 
             ButtonConsume.Enabled = false;
             ImageButtonSearch.Enabled = false;
+            TextBoxConsume.Enabled = false;
 
         }
 
@@ -64,13 +66,26 @@ namespace RestoClerkInventory.GUI
 
             GridViewInventory.DataSource = null;
             GridViewInventory.DataBind();
+            TextBoxConsume.Enabled = true;
 
         }
 
         protected void ButtonConsume_Click(object sender, EventArgs e)
         {
             int consumeQuantity = Convert.ToInt32(TextBoxConsume.Text);
-            int currentQuantity = Convert.ToInt32(TextBoxQuantity.Text) - consumeQuantity;
+            int currentQuantity;
+            if (consumeQuantity > Convert.ToInt32(TextBoxQuantity.Text))
+            {
+                MessageBox.Show("Consume quantity cannot be greater than current quantity");
+                TextBoxConsume.Text = "";
+                TextBoxConsume.Enabled = true;
+                return;
+            }
+            else
+            {
+                currentQuantity = Convert.ToInt32(TextBoxQuantity.Text) - consumeQuantity;
+            }
+           
             int itemID = Convert.ToInt32(TextBoxItemId.Text);
 
             Inventory inventory = new Inventory();
@@ -101,6 +116,11 @@ namespace RestoClerkInventory.GUI
         protected void TextBoxSearch_TextChanged(object sender, EventArgs e)
         {
             ImageButtonSearch.Enabled = true;
+        }
+
+        protected void ButtonExit_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("WebFormLogin.aspx");
         }
     }
 }

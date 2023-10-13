@@ -30,6 +30,10 @@ namespace RestoClerkInventory.DAL
                 });
             
             }
+            else
+            {
+                MessageBox.Show("Item not found");
+            }
             return inventories;
         }
 
@@ -52,16 +56,27 @@ namespace RestoClerkInventory.DAL
                     UnitOfMeasure = reader["UnitOfMeasure"].ToString()
                 });
             }
+            else
+            {
+                MessageBox.Show("Item not found");
+            }
             return inventories;
         }
 
         public static void UpdateRecord(int itemID, int quantity)
         {
-            SqlConnection conn = Service.GetDBConnection();
-            SqlCommand cmdUpdate = new SqlCommand("UPDATE Inventories SET Quantity = @Quantity WHERE ItemID = @ItemID", conn);
-            cmdUpdate.Parameters.AddWithValue("@Quantity", quantity);
-            cmdUpdate.Parameters.AddWithValue("@ItemID", itemID);
-            cmdUpdate.ExecuteNonQuery();
+            try
+            {
+                SqlConnection conn = Service.GetDBConnection();
+                SqlCommand cmdUpdate = new SqlCommand("UPDATE Inventories SET Quantity = @Quantity WHERE ItemID = @ItemID", conn);
+                cmdUpdate.Parameters.AddWithValue("@Quantity", quantity);
+                cmdUpdate.Parameters.AddWithValue("@ItemID", itemID);
+                cmdUpdate.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }
