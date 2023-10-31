@@ -81,7 +81,7 @@ namespace RestoClerkInventory.DAL
                 employee = new Employee();
                 user = new User();
                 user.UserId = Convert.ToInt32(reader["EmployeeId"]);
-                user.Password = reader["Password"].ToString();
+                user.HashedPassword = reader["HashedPassword"].ToString();
                 Position position = new Position();
                 if (Enum.TryParse(reader["Position"].ToString(), out position))
                     user.Position = position;
@@ -112,7 +112,7 @@ namespace RestoClerkInventory.DAL
                 employee = new Employee();
                 user = new User();
                 user.UserId = Convert.ToInt32(reader["EmployeeId"]);
-                user.Password = reader["Password"].ToString();
+                user.HashedPassword = reader["HashedPassword"].ToString();
                 Position position = new Position();
                 if (Enum.TryParse(reader["Position"].ToString(), out position))
                     user.Position = position;
@@ -146,7 +146,7 @@ namespace RestoClerkInventory.DAL
                 employee = new Employee();
                 user = new User();
                 user.UserId = Convert.ToInt32(reader["EmployeeId"]);
-                user.Password = reader["Password"].ToString();
+                user.HashedPassword = reader["HashedPassword"].ToString();
                 Position position = new Position();
                 if (Enum.TryParse(reader["Position"].ToString(), out position))
                     user.Position = position;
@@ -180,7 +180,7 @@ namespace RestoClerkInventory.DAL
                 employee = new Employee();
                 user = new User();
                 user.UserId = Convert.ToInt32(reader["EmployeeId"]);
-                user.Password = reader["Password"].ToString();
+                user.HashedPassword = reader["HashedPassword"].ToString();
                 Position position = new Position();
                 if (Enum.TryParse(reader["Position"].ToString(), out position))
                     user.Position = position;
@@ -214,7 +214,7 @@ namespace RestoClerkInventory.DAL
                 employee = new Employee();
                 user = new User();
                 user.UserId = Convert.ToInt32(reader["EmployeeId"]);
-                user.Password = reader["Password"].ToString();
+                user.HashedPassword = reader["HashedPassword"].ToString();
                 Position position = new Position();
                 if (Enum.TryParse(reader["Position"].ToString(), out position))
                     user.Position = position;
@@ -244,7 +244,7 @@ namespace RestoClerkInventory.DAL
                 employee = new Employee();
                 user = new User();
                 user.UserId = Convert.ToInt32(reader["EmployeeId"]);
-                user.Password = reader["Password"].ToString();
+                user.HashedPassword = reader["HashedPassword"].ToString();
                 Position position = new Position();
                 if (Enum.TryParse(reader["Position"].ToString(),out position))
                     user.Position = position;

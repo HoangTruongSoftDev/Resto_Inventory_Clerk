@@ -104,7 +104,7 @@
                     </Columns>
                 </asp:GridView>           
             
-            
+            <asp:Button ID="ButtonLogOut" runat="server" Text="Log Out" OnClick="ButtonLogOut_Click" />
         </div>
     </form>
 </body>

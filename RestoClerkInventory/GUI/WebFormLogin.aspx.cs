@@ -23,14 +23,8 @@ namespace RestoClerkInventory.GUI
                 DropDownListPosition.Items.Add(Position.Manager.ToString());
                 DropDownListPosition.Items.Add(Position.Staff.ToString());
                 TextBoxUserId.Attributes.Add("placeholder", "4-digit number");
-
             }
-
-
         }
-
-
-
 
         protected void ButtonLogin_Click(object sender, EventArgs e)
         {
@@ -64,39 +58,27 @@ namespace RestoClerkInventory.GUI
                 MessageBox.Show("This account is invalid", "Warning!!!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            string message = (user.Password == TextBoxPassword.Text) ? "Login Successfully" : "Your Password is incorrect";
-            MessageBox.Show(message, "Information", MessageBoxButtons.OK, MessageBoxIcon.Information); 
-            if (user.Password == TextBoxPassword.Text)
-            {               
-                if (user.Position.ToString() == Position.Admin.ToString())                
+
+            if (SecurityService.VerifyPassword(TextBoxPassword.Text, user.HashedPassword))
+            {
+                MessageBox.Show("Login Successfully", "Successfully", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (user.Position.ToString() == Position.Admin.ToString())
                     Response.Redirect("WebFormAdmin.aspx");
                 //if (user.Position.ToString() == Position.Manager.ToString())
                 //    // Form Manager
                 if (user.Position.ToString() == Position.Staff.ToString())
                     Response.Redirect("WebFormInventoryStaff.aspx");
             }
-
+            else
+            {
+                MessageBox.Show("Your Password is incorrect", "Warning!!!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
-       
 
         protected void DropDownListPosition_SelectedIndexChanged(object sender, EventArgs e)
         {
-            TextBoxUserId.Attributes["placeholder"] =  (DropDownListPosition.SelectedValue == Position.Admin.ToString()) ? "4-digit number" : "6-digit number";
+            TextBoxUserId.Attributes["placeholder"] = (DropDownListPosition.SelectedValue == Position.Admin.ToString()) ? "4-digit number" : "6-digit number";
             Service.ClearAllTextBoxes(this);
-            User user = new User();
-            
-            //switch (DropDownListPosition.SelectedIndex)
-            //{
-            //    case Enum.GetName(typeof(Position), 1):
-            //        TextBoxUserId.Attributes["placeholder"] = "4-digit number";
-            //        break;
-            //    case 2:
-            //        TextBoxUserId.Attributes["placeholder"] = "6-digit number";
-            //        break;
-            //    case 3:
-            //        TextBoxUserId.Attributes["placeholder"] = "6-digit number"; 
-            //        break;
-            //}
         }
 
         protected void ButtonImage_Click(object sender, EventArgs e)
@@ -105,10 +87,6 @@ namespace RestoClerkInventory.GUI
             string typePassword = (TextBoxPassword.Attributes["type"] == "password") ? "text" : "password";
             ImageButtonPassword.ImageUrl = imagePassword;
             TextBoxPassword.Attributes["type"] = typePassword;
-            
-
-
         }
-
     }
 }

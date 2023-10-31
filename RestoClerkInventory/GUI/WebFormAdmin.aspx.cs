@@ -28,7 +28,6 @@ namespace RestoClerkInventory.GUI
                 DropDownListSearchPosition.Items.Add(Position.Staff.ToString());
 
             }
-
         }
 
         protected void ButtonSave_Click(object sender, EventArgs e)
@@ -81,8 +80,6 @@ namespace RestoClerkInventory.GUI
                 return;
             }
 
-
-
             User user = new User();
             List<User> listAllUsers = user.GetAllUsers();
             user = user.GetUserById(Convert.ToInt32(TextBoxEmployeeId.Text.Trim()));
@@ -94,7 +91,7 @@ namespace RestoClerkInventory.GUI
             }
             user = new User();
             user.UserId = Convert.ToInt32(TextBoxEmployeeId.Text.Trim());
-            user.Password = TextBoxPassword.Text.Trim();
+            user.HashedPassword = SecurityService.HashPassword(TextBoxPassword.Text.Trim());
 
             Position position = new Position();
             if (Enum.TryParse(DropDownListPosition.SelectedValue, out position))
@@ -110,10 +107,6 @@ namespace RestoClerkInventory.GUI
             user.InsertUser(user);
             employee.InsertEmployee(employee);
             MessageBox.Show("Save Employee Successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-
-
-
         }
 
         protected void DropDownListSearch_SelectedIndexChanged(object sender, EventArgs e)
@@ -216,7 +209,7 @@ namespace RestoClerkInventory.GUI
 
             User user = new User();
             user.UserId = Convert.ToInt32(TextBoxEmployeeId.Text.Trim());
-            user.Password = TextBoxPassword.Text.Trim();
+            user.HashedPassword = TextBoxPassword.Text.Trim();
 
             Position position = new Position();
             if (Enum.TryParse(DropDownListPosition.SelectedValue, out position))
@@ -251,7 +244,7 @@ namespace RestoClerkInventory.GUI
                 emp.LastName,
                 emp.Email,
                 emp.User.Position,
-                emp.User.Password
+                emp.User.HashedPassword
             }).ToList();
             GridViewEmployee.DataBind();
         }
@@ -320,7 +313,7 @@ namespace RestoClerkInventory.GUI
                         emp.LastName,
                         emp.Email,
                         emp.User.Position,
-                        emp.User.Password
+                        emp.User.HashedPassword
                     }).ToList();
                     GridViewEmployee.DataBind();
                     break;
@@ -343,7 +336,7 @@ namespace RestoClerkInventory.GUI
                             emp.LastName,
                             emp.Email,
                             emp.User.Position,
-                            emp.User.Password
+                            emp.User.HashedPassword
                         });
                         GridViewEmployee.DataBind();
                     }
@@ -376,7 +369,7 @@ namespace RestoClerkInventory.GUI
                             emp.LastName,
                             emp.Email,
                             emp.User.Position,
-                            emp.User.Password
+                            emp.User.HashedPassword
                         });
                         GridViewEmployee.DataBind();
                     }
@@ -409,7 +402,7 @@ namespace RestoClerkInventory.GUI
                             emp.LastName,
                             emp.Email,
                             emp.User.Position,
-                            emp.User.Password
+                            emp.User.HashedPassword
                         });
                         GridViewEmployee.DataBind();
                     }
@@ -442,16 +435,14 @@ namespace RestoClerkInventory.GUI
                             emp.LastName,
                             emp.Email,
                             emp.User.Position,
-                            emp.User.Password
+                            emp.User.HashedPassword
                         });
                         GridViewEmployee.DataBind();
                     }
                     break;
                 default:
                     MessageBox.Show("There is something wrong", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
                     break;
-
             }
         }
 
@@ -461,6 +452,11 @@ namespace RestoClerkInventory.GUI
             string typePassword = (TextBoxPassword.Attributes["type"] == "password") ? "text" : "password";
             ImageButtonPassword.ImageUrl = imagePassword;
             TextBoxPassword.Attributes["type"] = typePassword;
+        }
+
+        protected void ButtonLogOut_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("WebFormLogin.aspx");
         }
     }
 }
