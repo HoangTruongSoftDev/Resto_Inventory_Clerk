@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace RestoClerkInventory.GUI
 {
-    public partial class WebFormInvntManager : System.Web.UI.Page
+    public partial class WebFormInventoryOrder : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {

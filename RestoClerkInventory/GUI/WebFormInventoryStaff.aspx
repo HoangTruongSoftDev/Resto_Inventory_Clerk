@@ -50,6 +50,36 @@
             width: 88%;
             height: 594px;
         }
+        .auto-style23 {
+            width: 404px;
+            border-radius: 5px;
+            font-size: 17px;
+            height: 53px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+            padding: 10px;
+        }
+        .auto-style24 {
+            width: 286px;
+            border-radius: 5px;
+            font-size: 17px;
+            height: 53px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+            padding: 10px;
+        }
+        .auto-style25 {
+            width: 342px;
+            border-radius: 5px;
+            font-size: 17px;
+            height: 53px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+            padding: 10px;
+        }
+        .auto-style26 {
+            height: 53px;
+        }
     </style>
 </head>
 <body>
@@ -64,14 +94,14 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="auto-style3">
+                    <td class="auto-style23">
                         <asp:Label ID="LabelItemId" runat="server" Text="Item ID"></asp:Label>
                     </td>
-                    <td class="auto-style5">
+                    <td class="auto-style24">
                         <asp:TextBox ID="TextBoxItemId" runat="server" ReadOnly="True"></asp:TextBox>
                     </td>
-                    <td class="auto-style7">&nbsp;</td>
-                    <td>&nbsp;</td>
+                    <td class="auto-style25"></td>
+                    <td class="auto-style26"></td>
                 </tr>
                 <tr>
                     <td class="auto-style3">
