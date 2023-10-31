@@ -1,12 +1,15 @@
 ﻿using RestoClerkInventory.BLL;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Windows.Forms;
+using System.Text.Json;
 using RestoClerkInventory.SERVICE;
+using RestoClerkInventory.DAL;
 
 namespace RestoClerkInventory.GUI
 {
@@ -172,5 +175,63 @@ namespace RestoClerkInventory.GUI
         {
             ImageButtonSearch.Enabled = true;
         }
+
+        protected void UploadButton_Click(object sender, EventArgs e)
+        {
+            if (FileUploadControl.HasFile)
+            {
+                try
+                {
+                    // Get the physical path for the uploaded file
+                    string filePath = Server.MapPath("~" + FileUploadControl.FileName);
+
+                    // Save the uploaded file to the server
+                    FileUploadControl.SaveAs(filePath);
+
+                    // Read the JSON data from the uploaded file
+                    string json = File.ReadAllText(filePath);
+
+                    // Deserialize the JSON to a list of Inventory objects
+                    List<Inventory> items = JsonSerializer.Deserialize<List<Inventory>>(json);
+
+                    // Iterate through the items and check if they already exist
+                    foreach (Inventory item in items)
+                    {
+                        // Check if an item with the same ID already exists in your inventory
+                        Inventory existingItem = InventoryDB.SelectRecordsByItemID(item.ItemID).FirstOrDefault();
+                        if (existingItem != null)
+                        {
+                            // Update the existing item with the new data
+                            item.UpdateInventory(item.ItemID, item.Quantity);
+                            // Update any other properties as needed
+                        }
+                        else
+                        {
+                            // If the item does not exist, add it to the inventory
+                            item.AddInventoryItem(item);
+                        }
+                    }
+
+
+
+                    // Bind the updated inventory to the GridView
+                    GridViewInventoryByManager.DataSource = InventoryDB.GetAllItems().OrderBy(item => item.ItemID);
+                    GridViewInventoryByManager.DataBind();
+
+                    // Display a success message or perform other actions
+                    MessageBox.Show("File uploaded successfully.");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select a file to upload.");
+            }
+        }
+
+
     }
 }

@@ -78,5 +78,44 @@ namespace RestoClerkInventory.DAL
                 MessageBox.Show(ex.Message);
             }
         }
+
+        public static void InsertRecord(Inventory item)
+        {
+            try
+            {
+                SqlConnection conn = Service.GetDBConnection();
+                SqlCommand cmdInsert = new SqlCommand("INSERT INTO Inventories VALUES (@ItemID, @Name, @Quantity, @UnitPrice, @UnitOfMeasure)", conn);
+                cmdInsert.Parameters.AddWithValue("@ItemID", item.ItemID);
+                cmdInsert.Parameters.AddWithValue("@Name", item.Name);
+                cmdInsert.Parameters.AddWithValue("@Quantity", item.Quantity);
+                cmdInsert.Parameters.AddWithValue("@UnitPrice", item.UnitPrice);
+                cmdInsert.Parameters.AddWithValue("@UnitOfMeasure", item.UnitOfMeasure);
+                cmdInsert.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        public static List<Inventory> GetAllItems()
+        {
+            List<Inventory> inventories = new List<Inventory>();
+            SqlConnection conn = Service.GetDBConnection();
+            SqlCommand cmdSelectAll = new SqlCommand("SELECT * FROM Inventories", conn);
+            SqlDataReader reader = cmdSelectAll.ExecuteReader();
+            while (reader.Read())
+            {
+                inventories.Add(new Inventory()
+                {
+                    ItemID = (int)reader["ItemId"],
+                    Name = reader["Name"].ToString(),
+                    Quantity = (int)reader["Quantity"],
+                    UnitPrice = (decimal)reader["UnitPrice"],
+                    UnitOfMeasure = reader["UnitOfMeasure"].ToString()
+                });
+            }
+            return inventories;
+        }
     }
 }

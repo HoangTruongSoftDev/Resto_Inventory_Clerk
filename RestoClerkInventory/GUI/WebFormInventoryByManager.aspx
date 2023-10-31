@@ -75,6 +75,16 @@ input[type=text] {
         .auto-style15 {
             width: 665px;
         }
+        .auto-style16 {
+            width: 100%;
+        }
+        .auto-style17 {
+            width: 386px;
+        }
+        .auto-style18 {
+            width: 386px;
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -175,6 +185,20 @@ input[type=text] {
                     </td>
                     <td>
                         <asp:ImageButton ID="ImageButtonSearch" Style="height: 18px" runat="server" ImageUrl="../img/magnifying-glass.jfif" OnClick="ImageButtonSearch_Click" />
+                    </td>
+                </tr>
+            </table>
+            <table class="auto-style16">
+                <tr>
+                    <td class="auto-style18"><strong>Import from here</strong></td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="auto-style17">
+                        <asp:FileUpload ID="FileUploadControl" runat="server" />
+                    </td>
+                    <td>
+                        <asp:Button ID="UploadButton" runat="server" OnClick="UploadButton_Click" Text="Upload File" />
                     </td>
                 </tr>
             </table>

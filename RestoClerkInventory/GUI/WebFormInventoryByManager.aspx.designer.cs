@@ -249,6 +249,24 @@ namespace RestoClerkInventory.GUI
         protected global::System.Web.UI.WebControls.ImageButton ImageButtonSearch;
 
         /// <summary>
+        /// FileUploadControl control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload FileUploadControl;
+
+        /// <summary>
+        /// UploadButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button UploadButton;
+
+        /// <summary>
         /// GridViewInventoryByManager control.
         /// </summary>
         /// <remarks>
