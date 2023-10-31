@@ -70,8 +70,8 @@ namespace RestoClerkInventory.GUI
             {               
                 if (user.Position.ToString() == Position.Admin.ToString())                
                     Response.Redirect("WebFormAdmin.aspx");
-                //if (user.Position.ToString() == Position.Manager.ToString())
-                //    // Form Manager
+                if (user.Position.ToString() == Position.Manager.ToString())
+                    Response.Redirect("WebFormInventoryByManager.aspx");
                 if (user.Position.ToString() == Position.Staff.ToString())
                     Response.Redirect("WebFormInventoryStaff.aspx");
             }
@@ -84,19 +84,7 @@ namespace RestoClerkInventory.GUI
             TextBoxUserId.Attributes["placeholder"] =  (DropDownListPosition.SelectedValue == Position.Admin.ToString()) ? "4-digit number" : "6-digit number";
             Service.ClearAllTextBoxes(this);
             User user = new User();
-            
-            //switch (DropDownListPosition.SelectedIndex)
-            //{
-            //    case Enum.GetName(typeof(Position), 1):
-            //        TextBoxUserId.Attributes["placeholder"] = "4-digit number";
-            //        break;
-            //    case 2:
-            //        TextBoxUserId.Attributes["placeholder"] = "6-digit number";
-            //        break;
-            //    case 3:
-            //        TextBoxUserId.Attributes["placeholder"] = "6-digit number"; 
-            //        break;
-            //}
+           
         }
 
         protected void ButtonImage_Click(object sender, EventArgs e)

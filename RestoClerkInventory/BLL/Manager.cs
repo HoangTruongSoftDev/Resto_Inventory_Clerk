@@ -6,7 +6,7 @@ using RestoClerkInventory.DAL;
 
 namespace RestoClerkInventory.BLL
 {
-    public class Inventory
+    public class Manager
     {
         private int itemID;
         private string name;
@@ -44,12 +44,14 @@ namespace RestoClerkInventory.BLL
             set { this.unitOfMeasure = value; }
         }
 
-        public List<Inventory> GetInventoryByItemID(int itemID) => InventoryDB.SelectRecordsByItemID(itemID);
+        public List<Manager> GetAllItemRecords() => ManagerDB.GetAllItems();
 
-        public List<Inventory> GetInventoryByItemName(string name) => InventoryDB.SelectRecordsByItemName(name);
+        public List<Manager> GetInventoryByItemID(int itemID) => ManagerDB.SelectRecordsByItemID(itemID);
+        public List<Manager> GetInventoryByItemName(string name) => ManagerDB.SelectRecordsByItemName(name);
 
-        public void UpdateInventory(int itemID, int quantity) => InventoryDB.UpdateRecord(itemID, quantity);
+        public void UpdateInventoryForConsumedQ(int itemID, int quantity) => ManagerDB.UpdateRecordForConsumedQuantity(itemID, quantity);
 
-        public void AddInventoryItem(Inventory inventory) => InventoryDB.InsertRecord(inventory);
+
+
     }
 }

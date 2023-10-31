@@ -6,6 +6,7 @@ using System.Web;
 
 namespace RestoClerkInventory.BLL
 {
+
     public class Employee
     {
         private User user;

@@ -1,26 +1,50 @@
-﻿using System;
+﻿using RestoClerkInventory.BLL;
+using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
-using RestoClerkInventory.BLL;
-using System.Data.SqlClient;
 using System.Windows.Forms;
 using RestoClerkInventory.SERVICE;
 
+
 namespace RestoClerkInventory.DAL
 {
-    public static class InventoryDB
+    public class ManagerDB
     {
-        public static List<Inventory> SelectRecordsByItemID(int itemID)
+
+        public static List<Manager> GetAllItems()
         {
-            List<Inventory> inventories = new List<Inventory>();
+            List<Manager> items = new List<Manager>();
+            SqlConnection conn = Service.GetDBConnection();
+            SqlCommand cmdSelectAll = new SqlCommand("SELECT * FROM Inventories", conn);
+            SqlDataReader reader = cmdSelectAll.ExecuteReader();
+
+            while (reader.Read())
+            {
+                Manager manager = new Manager();
+                manager.ItemID = Convert.ToInt32(reader["ItemID"]);
+                manager.Name = reader["Name"].ToString();
+                manager.Quantity = Convert.ToInt32(reader["Quantity"]);
+                manager.UnitPrice = (decimal)(reader["UnitPrice"]);
+                manager.UnitOfMeasure = reader["UnitOfMeasure"].ToString();
+                items.Add(manager);
+
+            }
+            conn.Close();
+            return items;
+        }
+
+        public static List<Manager> SelectRecordsByItemID(int itemID)
+        {
+            List<Manager> managerList = new List<Manager>();
             SqlConnection conn = Service.GetDBConnection();
             SqlCommand cmdSelectByItemId = new SqlCommand("SELECT * FROM Inventories WHERE ItemID = @ItemID", conn);
             cmdSelectByItemId.Parameters.AddWithValue("@ItemID", itemID);
             SqlDataReader reader = cmdSelectByItemId.ExecuteReader();
             if (reader.Read())
             {
-                inventories.Add(new Inventory()
+                managerList.Add(new Manager()
                 {
                     ItemID = (int)reader["ItemId"],
                     Name = reader["Name"].ToString(),
@@ -28,18 +52,18 @@ namespace RestoClerkInventory.DAL
                     UnitPrice = (decimal)reader["UnitPrice"],
                     UnitOfMeasure = reader["UnitOfMeasure"].ToString()
                 });
-            
+
             }
             else
             {
                 MessageBox.Show("Item not found");
             }
-            return inventories;
+            return managerList;
         }
 
-        public static List<Inventory> SelectRecordsByItemName(String name)
+        public static List<Manager> SelectRecordsByItemName(String name)
         {
-            List<Inventory> inventories = new List<Inventory>();
+            List<Manager> managerList = new List<Manager>();
             SqlConnection conn = Service.GetDBConnection();
             SqlCommand cmdSelectByName = new SqlCommand("SELECT * FROM Inventories WHERE Name = @Name", conn);
             cmdSelectByName.Parameters.AddWithValue("@Name", name);
@@ -47,7 +71,7 @@ namespace RestoClerkInventory.DAL
 
             if (reader.Read())
             {
-                inventories.Add(new Inventory()
+                managerList.Add(new Manager()
                 {
                     ItemID = (int)reader["ItemId"],
                     Name = reader["Name"].ToString(),
@@ -60,10 +84,10 @@ namespace RestoClerkInventory.DAL
             {
                 MessageBox.Show("Item not found");
             }
-            return inventories;
+            return managerList;
         }
 
-        public static void UpdateRecord(int itemID, int quantity)
+        public static void UpdateRecordForConsumedQuantity(int itemID, int quantity)
         {
             try
             {
@@ -79,43 +103,5 @@ namespace RestoClerkInventory.DAL
             }
         }
 
-        public static void InsertRecord(Inventory item)
-        {
-            try
-            {
-                SqlConnection conn = Service.GetDBConnection();
-                SqlCommand cmdInsert = new SqlCommand("INSERT INTO Inventories VALUES (@ItemID, @Name, @Quantity, @UnitPrice, @UnitOfMeasure)", conn);
-                cmdInsert.Parameters.AddWithValue("@ItemID", item.ItemID);
-                cmdInsert.Parameters.AddWithValue("@Name", item.Name);
-                cmdInsert.Parameters.AddWithValue("@Quantity", item.Quantity);
-                cmdInsert.Parameters.AddWithValue("@UnitPrice", item.UnitPrice);
-                cmdInsert.Parameters.AddWithValue("@UnitOfMeasure", item.UnitOfMeasure);
-                cmdInsert.ExecuteNonQuery();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-        public static List<Inventory> GetAllItems()
-        {
-            List<Inventory> inventories = new List<Inventory>();
-            SqlConnection conn = Service.GetDBConnection();
-            SqlCommand cmdSelectAll = new SqlCommand("SELECT * FROM Inventories", conn);
-            SqlDataReader reader = cmdSelectAll.ExecuteReader();
-            while (reader.Read())
-            {
-                inventories.Add(new Inventory()
-                {
-                    ItemID = (int)reader["ItemId"],
-                    Name = reader["Name"].ToString(),
-                    Quantity = (int)reader["Quantity"],
-                    UnitPrice = (decimal)reader["UnitPrice"],
-                    UnitOfMeasure = reader["UnitOfMeasure"].ToString()
-                });
-            }
-            return inventories;
-        }
     }
 }
