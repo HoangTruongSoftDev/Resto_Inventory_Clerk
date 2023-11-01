@@ -202,8 +202,9 @@ namespace RestoClerkInventory.GUI
                         if (existingItem != null)
                         {
                             // Update the existing item with the new data
-                            item.UpdateInventory(item.ItemID, item.Quantity);
-                            // Update any other properties as needed
+                            int newQuantity = existingItem.Quantity + item.Quantity;
+                            item.UpdateInventory(item.ItemID, newQuantity);
+
                         }
                         else
                         {
