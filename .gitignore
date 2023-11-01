@@ -15,3 +15,5 @@
 /RestoClerkInventory/Web.Release.config
 /RestoClerkInventory.sln
 /.vs/RestoClerkInventory/v17
+/.vs
+/packages

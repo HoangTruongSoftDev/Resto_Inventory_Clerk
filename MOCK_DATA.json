@@ -1,0 +1,18 @@
+[
+{"ItemID":5,"Name":"Salmon - Smoked, Sliced","Quantity":79,"UnitPrice":62.71,"UnitOfMeasure":"lb"},
+{"ItemID":6,"Name":"Garbage Bag - Clear","Quantity":34,"UnitPrice":66.69,"UnitOfMeasure":"lb"},
+{"ItemID":7,"Name":"Spinach - Frozen","Quantity":20,"UnitPrice":81.59,"UnitOfMeasure":"ea"},
+{"ItemID":8,"Name":"Ecolab - Hobart Washarm End Cap","Quantity":81,"UnitPrice":64.31,"UnitOfMeasure":"lb"},
+{"ItemID":9,"Name":"Tomatoes - Vine Ripe, Yellow","Quantity":29,"UnitPrice":24.64,"UnitOfMeasure":"lb"},
+{"ItemID":10,"Name":"Beef - Tenderlion, Center Cut","Quantity":82,"UnitPrice":35.49,"UnitOfMeasure":"ea"},
+{"ItemID":11,"Name":"Butter - Salted, Micro","Quantity":13,"UnitPrice":49.51,"UnitOfMeasure":"ea"},
+{"ItemID":12,"Name":"Cake - Dulce De Leche","Quantity":66,"UnitPrice":34.8,"UnitOfMeasure":"ea"},
+{"ItemID":13,"Name":"Oil - Olive Bertolli","Quantity":10,"UnitPrice":11.85,"UnitOfMeasure":"lb"},
+{"ItemID":14,"Name":"Sprouts - Brussel","Quantity":51,"UnitPrice":94.31,"UnitOfMeasure":"ea"},
+{"ItemID":15,"Name":"Spring Roll Wrappers","Quantity":9,"UnitPrice":99.83,"UnitOfMeasure":"ea"},
+{"ItemID":16,"Name":"Cheese - Fontina","Quantity":55,"UnitPrice":55.8,"UnitOfMeasure":"lb"},
+{"ItemID":17,"Name":"Beets","Quantity":55,"UnitPrice":95.51,"UnitOfMeasure":"lb"},
+{"ItemID":18,"Name":"Squash - Pepper","Quantity":85,"UnitPrice":20.8,"UnitOfMeasure":"lb"},
+{"ItemID":19,"Name":"Syrup - Monin, Irish Cream","Quantity":57,"UnitPrice":90.24,"UnitOfMeasure":"ea"},
+{"ItemID":20,"Name":"Noodles - Cellophane, Thin","Quantity":10,"UnitPrice":4.1,"UnitOfMeasure":"ea"}
+]

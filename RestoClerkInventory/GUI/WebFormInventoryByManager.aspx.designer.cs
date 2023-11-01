@@ -11,7 +11,7 @@ namespace RestoClerkInventory.GUI
 {
 
 
-    public partial class WebFormInvntManager
+    public partial class WebFormInventoryByManager
     {
 
         /// <summary>
@@ -24,15 +24,6 @@ namespace RestoClerkInventory.GUI
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
-        /// LabelTitle control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LabelTitle;
-
-        /// <summary>
         /// LabelEmployeeId control.
         /// </summary>
         /// <remarks>
@@ -42,22 +33,22 @@ namespace RestoClerkInventory.GUI
         protected global::System.Web.UI.WebControls.Label LabelEmployeeId;
 
         /// <summary>
-        /// TextBoxEmployeeId control.
+        /// TextBoxItemIdManager control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBoxEmployeeId;
+        protected global::System.Web.UI.WebControls.TextBox TextBoxItemIdManager;
 
         /// <summary>
-        /// ButtonSave control.
+        /// ButtonSaveManager control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ButtonSave;
+        protected global::System.Web.UI.WebControls.Button ButtonSaveManager;
 
         /// <summary>
         /// LabelEmployeeId0 control.
@@ -69,22 +60,22 @@ namespace RestoClerkInventory.GUI
         protected global::System.Web.UI.WebControls.Label LabelEmployeeId0;
 
         /// <summary>
-        /// TextBoxLastName0 control.
+        /// TextBoxItemNameManager control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBoxLastName0;
+        protected global::System.Web.UI.WebControls.TextBox TextBoxItemNameManager;
 
         /// <summary>
-        /// ButtonClear control.
+        /// ButtonClearManager control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ButtonClear;
+        protected global::System.Web.UI.WebControls.Button ButtonClearManager;
 
         /// <summary>
         /// LabelFirstName control.
@@ -96,22 +87,49 @@ namespace RestoClerkInventory.GUI
         protected global::System.Web.UI.WebControls.Label LabelFirstName;
 
         /// <summary>
-        /// TextBoxFirstName control.
+        /// TextBoxQuantityManager control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBoxFirstName;
+        protected global::System.Web.UI.WebControls.TextBox TextBoxQuantityManager;
 
         /// <summary>
-        /// ButtonUpdate control.
+        /// ButtonUpdateManager control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ButtonUpdate;
+        protected global::System.Web.UI.WebControls.Button ButtonUpdateManager;
+
+        /// <summary>
+        /// LabelFirstName0 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelFirstName0;
+
+        /// <summary>
+        /// TextBoxUnitPriceManager control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBoxUnitPriceManager;
+
+        /// <summary>
+        /// ButtonDeleteManager control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ButtonDeleteManager;
 
         /// <summary>
         /// LabelLastName control.
@@ -123,22 +141,22 @@ namespace RestoClerkInventory.GUI
         protected global::System.Web.UI.WebControls.Label LabelLastName;
 
         /// <summary>
-        /// TextBoxLastName control.
+        /// TextBoxUnitOfMeasureManager control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBoxLastName;
+        protected global::System.Web.UI.WebControls.TextBox TextBoxUnitOfMeasureManager;
 
         /// <summary>
-        /// ButtonDelete control.
+        /// ButtonListAllItemsManager control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ButtonDelete;
+        protected global::System.Web.UI.WebControls.Button ButtonListAllItemsManager;
 
         /// <summary>
         /// LabelEmail control.
@@ -150,40 +168,13 @@ namespace RestoClerkInventory.GUI
         protected global::System.Web.UI.WebControls.Label LabelEmail;
 
         /// <summary>
-        /// LabelPrice control.
+        /// TextBoxTotalPriceManager control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LabelPrice;
-
-        /// <summary>
-        /// ButtonHistoryTransaction control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ButtonHistoryTransaction;
-
-        /// <summary>
-        /// ButtonWarnings control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ButtonWarnings;
-
-        /// <summary>
-        /// ButtonVacationMode control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ButtonVacationMode;
+        protected global::System.Web.UI.WebControls.TextBox TextBoxTotalPriceManager;
 
         /// <summary>
         /// LabelEmail0 control.
@@ -195,49 +186,31 @@ namespace RestoClerkInventory.GUI
         protected global::System.Web.UI.WebControls.Label LabelEmail0;
 
         /// <summary>
-        /// DropDownListSearch0 control.
+        /// TextBoxQuantityConsumedManager control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownListSearch0;
+        protected global::System.Web.UI.WebControls.TextBox TextBoxQuantityConsumedManager;
 
         /// <summary>
-        /// LabelEmail1 control.
+        /// ButtonConsumedManager control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LabelEmail1;
+        protected global::System.Web.UI.WebControls.Button ButtonConsumedManager;
 
         /// <summary>
-        /// TextBoxLastName1 control.
+        /// ButtonExitManager control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBoxLastName1;
-
-        /// <summary>
-        /// ButtonPlaceOrder control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ButtonPlaceOrder;
-
-        /// <summary>
-        /// LabelMessage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LabelMessage;
+        protected global::System.Web.UI.WebControls.Button ButtonExitManager;
 
         /// <summary>
         /// LabelSearch control.
@@ -249,22 +222,22 @@ namespace RestoClerkInventory.GUI
         protected global::System.Web.UI.WebControls.Label LabelSearch;
 
         /// <summary>
-        /// DropDownListSearch control.
+        /// DropDownListSearchByManager control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownListSearch;
+        protected global::System.Web.UI.WebControls.DropDownList DropDownListSearchByManager;
 
         /// <summary>
-        /// TextBoxSearch control.
+        /// TextBoxSearchByManager control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBoxSearch;
+        protected global::System.Web.UI.WebControls.TextBox TextBoxSearchByManager;
 
         /// <summary>
         /// ImageButtonSearch control.
@@ -276,21 +249,30 @@ namespace RestoClerkInventory.GUI
         protected global::System.Web.UI.WebControls.ImageButton ImageButtonSearch;
 
         /// <summary>
-        /// LabelResult control.
+        /// FileUploadControl control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LabelResult;
+        protected global::System.Web.UI.WebControls.FileUpload FileUploadControl;
 
         /// <summary>
-        /// GridViewInventory control.
+        /// UploadButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridViewInventory;
+        protected global::System.Web.UI.WebControls.Button UploadButton;
+
+        /// <summary>
+        /// GridViewInventoryByManager control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView GridViewInventoryByManager;
     }
 }

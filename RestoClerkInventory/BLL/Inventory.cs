@@ -49,5 +49,7 @@ namespace RestoClerkInventory.BLL
         public List<Inventory> GetInventoryByItemName(string name) => InventoryDB.SelectRecordsByItemName(name);
 
         public void UpdateInventory(int itemID, int quantity) => InventoryDB.UpdateRecord(itemID, quantity);
+
+        public void AddInventoryItem(Inventory inventory) => InventoryDB.InsertRecord(inventory);
     }
 }
