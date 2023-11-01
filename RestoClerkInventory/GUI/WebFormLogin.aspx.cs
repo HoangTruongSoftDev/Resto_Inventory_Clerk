@@ -58,7 +58,11 @@ namespace RestoClerkInventory.GUI
                 MessageBox.Show("This account is invalid", "Warning!!!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-
+            if (DropDownListPosition.SelectedItem.Text != user.Position.ToString())
+            {
+                MessageBox.Show("This account position is invalid", "Warning!!!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             if (SecurityService.VerifyPassword(TextBoxPassword.Text, user.HashedPassword))
             {
                 MessageBox.Show("Login Successfully", "Successfully", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -79,42 +83,6 @@ namespace RestoClerkInventory.GUI
         {
             TextBoxUserId.Attributes["placeholder"] = (DropDownListPosition.SelectedValue == Position.Admin.ToString()) ? "4-digit number" : "6-digit number";
             Service.ClearAllTextBoxes(this);
-            //switch (DropDownListPosition.SelectedIndex)
-            //{
-            //    case Enum.GetName(typeof(Position), 1):
-            //        TextBoxUserId.Attributes["placeholder"] = "4-digit number";
-            //        break;
-            //    case 2:
-            //        TextBoxUserId.Attributes["placeholder"] = "6-digit number";
-            //        break;
-            //    case 3:
-            //        TextBoxUserId.Attributes["placeholder"] = "6-digit number"; 
-            //        break;
-            //}
-            //switch (DropDownListPosition.SelectedIndex)
-            //{
-            //    case Enum.GetName(typeof(Position), 1):
-            //        TextBoxUserId.Attributes["placeholder"] = "4-digit number";
-            //        break;
-            //    case 2:
-            //        TextBoxUserId.Attributes["placeholder"] = "6-digit number";
-            //        break;
-            //    case 3:
-            //        TextBoxUserId.Attributes["placeholder"] = "6-digit number"; 
-            //        break;
-            //}
-            //switch (DropDownListPosition.SelectedIndex)
-            //{
-            //    case Enum.GetName(typeof(Position), 1):
-            //        TextBoxUserId.Attributes["placeholder"] = "4-digit number";
-            //        break;
-            //    case 2:
-            //        TextBoxUserId.Attributes["placeholder"] = "6-digit number";
-            //        break;
-            //    case 3:
-            //        TextBoxUserId.Attributes["placeholder"] = "6-digit number"; 
-            //        break;
-            //}
         }
 
         protected void ButtonImage_Click(object sender, EventArgs e)

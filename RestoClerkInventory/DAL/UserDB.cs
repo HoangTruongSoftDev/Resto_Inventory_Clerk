@@ -94,7 +94,7 @@ namespace RestoClerkInventory.DAL
             SqlCommand cmdSelectById = new SqlCommand("SELECT * FROM Users WHERE UserId = @userId;", conn);
             cmdSelectById.Parameters.AddWithValue("@userId", userId);
             SqlDataReader reader = cmdSelectById.ExecuteReader();
-            User user = null;
+            User user;
             if (reader.Read())
             {
                 user = new User();
@@ -104,9 +104,10 @@ namespace RestoClerkInventory.DAL
                 
                 Position position = Position.Undefined;
                 if(Enum.TryParse(reader["Position"].ToString(),out position))               
-                    user.Position = position;               
+                    user.Position = position; 
+                return user;
             }
-            return user;
+            return null;
         }
         
     }

@@ -37,7 +37,7 @@ namespace RestoClerkInventory.Validation
 
         public static bool IsValidPassword(string password)
         {
-            if (!Regex.IsMatch(password, @"^\w+$"))
+            if (!Regex.IsMatch(password, @"^\w*$"))
                 return false;
             return true;
         }

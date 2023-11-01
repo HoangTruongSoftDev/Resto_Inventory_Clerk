@@ -42,34 +42,12 @@ namespace RestoClerkInventory.DAL
             cmdDelete.ExecuteNonQuery();
             conn.Close();
         }
-        //public static List<Employee> SelectAllRecords()
-        //{
-        //    List<Employee> listAllEmployees = new List<Employee>();
-        //    SqlConnection conn = Service.GetDBConnection();
-        //    SqlCommand cmdSelectAll = new SqlCommand("SELECT * FROM Employees;", conn);
-        //    SqlDataReader reader = cmdSelectAll.ExecuteReader();
-        //    Employee employee;
-        //    while (reader.Read())
-        //    {
-        //        employee = new Employee();
-        //        employee.User.UserId = Convert.ToInt32(reader["EmployeeId"]);
-        //        employee.FirstName = reader["FirstName"].ToString();
-        //        employee.LastName = reader["LastName"].ToString();
-        //        employee.Email = reader["Email"].ToString();
-        //        listAllEmployees.Add(employee);
-        //    }
-        //    conn.Close();
-
-        //    if (listAllEmployees.Any())
-        //        return listAllEmployees;
-        //    return null;
-        //}
 
         public static Employee SelectRecordById(int employeeId)
         {
             SqlConnection conn = Service.GetDBConnection();
             SqlCommand cmdSelectById = new SqlCommand("SELECT Employees.EmployeeId, Employees.FirstName, Employees.LastName, Employees.Email, " +
-                                                     "Users.Position, Users.Password " +
+                                                     "Users.Position " +
                                                      "FROM Employees JOIN Users ON Employees.EmployeeId = Users.UserId " +
                                                      "WHERE Employees.EmployeeId = @employeeId;", conn);
             cmdSelectById.Parameters.AddWithValue("@employeeId", employeeId);
@@ -81,7 +59,6 @@ namespace RestoClerkInventory.DAL
                 employee = new Employee();
                 user = new User();
                 user.UserId = Convert.ToInt32(reader["EmployeeId"]);
-                user.HashedPassword = reader["HashedPassword"].ToString();
                 Position position = new Position();
                 if (Enum.TryParse(reader["Position"].ToString(), out position))
                     user.Position = position;
@@ -100,7 +77,7 @@ namespace RestoClerkInventory.DAL
             SqlCommand cmdSelectByPosition = new SqlCommand();
             cmdSelectByPosition.Connection = conn;
             cmdSelectByPosition.CommandText = "SELECT Employees.EmployeeId, Employees.FirstName, Employees.LastName, Employees.Email, " +
-                                                     "Users.Position, Users.Password " +
+                                                     "Users.Position " +
                                                      "FROM Employees JOIN Users ON Employees.EmployeeId = Users.UserId " +
                                                      "WHERE Users.Position = @position;";
             cmdSelectByPosition.Parameters.AddWithValue("@position", inputPosition);
@@ -112,7 +89,6 @@ namespace RestoClerkInventory.DAL
                 employee = new Employee();
                 user = new User();
                 user.UserId = Convert.ToInt32(reader["EmployeeId"]);
-                user.HashedPassword = reader["HashedPassword"].ToString();
                 Position position = new Position();
                 if (Enum.TryParse(reader["Position"].ToString(), out position))
                     user.Position = position;
@@ -134,7 +110,7 @@ namespace RestoClerkInventory.DAL
             SqlCommand cmdSelectByPosition = new SqlCommand();
             cmdSelectByPosition.Connection = conn;
             cmdSelectByPosition.CommandText = "SELECT Employees.EmployeeId, Employees.FirstName, Employees.LastName, Employees.Email, " +
-                                                     "Users.Position, Users.Password " +
+                                                     "Users.Position " +
                                                      "FROM Employees JOIN Users ON Employees.EmployeeId = Users.UserId " +
                                                      "WHERE Employees.FirstName = @firstName;";
             cmdSelectByPosition.Parameters.AddWithValue("@firstName", firstName);
@@ -146,7 +122,6 @@ namespace RestoClerkInventory.DAL
                 employee = new Employee();
                 user = new User();
                 user.UserId = Convert.ToInt32(reader["EmployeeId"]);
-                user.HashedPassword = reader["HashedPassword"].ToString();
                 Position position = new Position();
                 if (Enum.TryParse(reader["Position"].ToString(), out position))
                     user.Position = position;
@@ -168,7 +143,7 @@ namespace RestoClerkInventory.DAL
             SqlCommand cmdSelectByPosition = new SqlCommand();
             cmdSelectByPosition.Connection = conn;
             cmdSelectByPosition.CommandText = "SELECT Employees.EmployeeId, Employees.FirstName, Employees.LastName, Employees.Email, " +
-                                                     "Users.Position, Users.Password " +
+                                                     "Users.Position " +
                                                      "FROM Employees JOIN Users ON Employees.EmployeeId = Users.UserId " +
                                                      "WHERE Employees.LastName = @lastName;";
             cmdSelectByPosition.Parameters.AddWithValue("@lastName", lastName);
@@ -180,7 +155,6 @@ namespace RestoClerkInventory.DAL
                 employee = new Employee();
                 user = new User();
                 user.UserId = Convert.ToInt32(reader["EmployeeId"]);
-                user.HashedPassword = reader["HashedPassword"].ToString();
                 Position position = new Position();
                 if (Enum.TryParse(reader["Position"].ToString(), out position))
                     user.Position = position;
@@ -202,7 +176,7 @@ namespace RestoClerkInventory.DAL
             SqlCommand cmdSelectByPosition = new SqlCommand();
             cmdSelectByPosition.Connection = conn;
             cmdSelectByPosition.CommandText = "SELECT Employees.EmployeeId, Employees.FirstName, Employees.LastName, Employees.Email, " +
-                                                     "Users.Position, Users.Password " +
+                                                     "Users.Position " +
                                                      "FROM Employees JOIN Users ON Employees.EmployeeId = Users.UserId " +
                                                      "WHERE Employees.Email = @email;";
             cmdSelectByPosition.Parameters.AddWithValue("@email", email);
@@ -214,7 +188,6 @@ namespace RestoClerkInventory.DAL
                 employee = new Employee();
                 user = new User();
                 user.UserId = Convert.ToInt32(reader["EmployeeId"]);
-                user.HashedPassword = reader["HashedPassword"].ToString();
                 Position position = new Position();
                 if (Enum.TryParse(reader["Position"].ToString(), out position))
                     user.Position = position;
@@ -234,7 +207,7 @@ namespace RestoClerkInventory.DAL
             List<Employee> listAllEmployees = new List<Employee>();
             SqlConnection conn = Service.GetDBConnection();
             SqlCommand cmdSelectAll = new SqlCommand("SELECT Employees.EmployeeId, Employees.FirstName, Employees.LastName, Employees.Email, " +
-                                                     "Users.Position, Users.Password " +
+                                                     "Users.Position " +
                                                      "FROM Employees JOIN Users ON Employees.EmployeeId = Users.UserId;", conn);
             SqlDataReader reader = cmdSelectAll.ExecuteReader();
             Employee employee;
@@ -244,7 +217,6 @@ namespace RestoClerkInventory.DAL
                 employee = new Employee();
                 user = new User();
                 user.UserId = Convert.ToInt32(reader["EmployeeId"]);
-                user.HashedPassword = reader["HashedPassword"].ToString();
                 Position position = new Position();
                 if (Enum.TryParse(reader["Position"].ToString(),out position))
                     user.Position = position;
