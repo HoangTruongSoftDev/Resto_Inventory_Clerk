@@ -30,10 +30,10 @@ namespace RestoClerkInventory.DAL
                 });
             
             }
-            else
-            {
-                MessageBox.Show("Item not found");
-            }
+            //else
+            //{
+            //    MessageBox.Show("Item not found");
+            //}
             return inventories;
         }
 

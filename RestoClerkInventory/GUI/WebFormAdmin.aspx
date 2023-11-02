@@ -99,12 +99,11 @@
                         <asp:BoundField DataField="LastName" HeaderText="Last Name" ReadOnly="True" SortExpression="LastName"></asp:BoundField>
                         <asp:BoundField DataField="Email" HeaderText="Email" ReadOnly="True" SortExpression="Email"></asp:BoundField>
                         <asp:BoundField DataField="Position" HeaderText="Position" ReadOnly="True"></asp:BoundField>
-                        <asp:BoundField DataField="Password" HeaderText="Password" ReadOnly="True"></asp:BoundField>
                         <asp:ButtonField CommandName="Select" Text="Select" ButtonType="Button"></asp:ButtonField>
                     </Columns>
                 </asp:GridView>           
             
-            
+            <asp:Button ID="ButtonLogOut" runat="server" Text="Log Out" OnClick="ButtonLogOut_Click" />
         </div>
     </form>
 </body>

@@ -13,9 +13,9 @@ namespace RestoClerkInventory.DAL
         public static void InsertRecord(User user)
         {
             SqlConnection conn = Service.GetDBConnection();
-            SqlCommand cmdInsert = new SqlCommand("INSERT INTO Users VALUES (@userId, @password, @position); ", conn);
+            SqlCommand cmdInsert = new SqlCommand("INSERT INTO Users VALUES (@userId, @hashedPassword, @position); ", conn);
             cmdInsert.Parameters.AddWithValue("@userId", user.UserId);
-            cmdInsert.Parameters.AddWithValue("@password", user.Password);
+            cmdInsert.Parameters.AddWithValue("@hashedPassword", user.HashedPassword);
             cmdInsert.Parameters.AddWithValue("@position", user.Position.ToString());
             cmdInsert.ExecuteNonQuery();
             conn.Close();
@@ -24,10 +24,10 @@ namespace RestoClerkInventory.DAL
         {
             SqlConnection conn = Service.GetDBConnection();
             SqlCommand cmdUpdate = new SqlCommand();
-            cmdUpdate.CommandText = "UPDATE Users SET Password = @password, Position = @position WHERE UserId = @userId;";
+            cmdUpdate.CommandText = "UPDATE Users SET HashedPassword = @hashedpassword, Position = @position WHERE UserId = @userId;";
             cmdUpdate.Connection = conn;
             cmdUpdate.Parameters.AddWithValue("@userId", user.UserId);
-            cmdUpdate.Parameters.AddWithValue("@password", user.Password);
+            cmdUpdate.Parameters.AddWithValue("@hashedpassword", user.HashedPassword);
             cmdUpdate.Parameters.AddWithValue("@position", user.Position.ToString());
             cmdUpdate.ExecuteNonQuery();
             conn.Close();
@@ -51,7 +51,7 @@ namespace RestoClerkInventory.DAL
             {
                 user = new User();
                 user.UserId = Convert.ToInt32(reader["UserId"]);
-                user.Password = reader["Password"].ToString();
+                user.HashedPassword = reader["HashedPassword"].ToString();
                 Position position = Position.Undefined;
                 if (Enum.TryParse(reader["Position"].ToString(), out position))
                     user.Position = position;               
@@ -75,7 +75,7 @@ namespace RestoClerkInventory.DAL
             {
                 user = new User();
                 user.UserId = Convert.ToInt32(reader["UserId"]);
-                user.Password = reader["Password"].ToString();
+                user.HashedPassword = reader["HashedPassword"].ToString();
                 Position position = Position.Undefined;
                 if (Enum.TryParse(reader["Position"].ToString(), out position))
                     user.Position = position;
@@ -94,17 +94,20 @@ namespace RestoClerkInventory.DAL
             SqlCommand cmdSelectById = new SqlCommand("SELECT * FROM Users WHERE UserId = @userId;", conn);
             cmdSelectById.Parameters.AddWithValue("@userId", userId);
             SqlDataReader reader = cmdSelectById.ExecuteReader();
-            User user = null;
+            User user;
             if (reader.Read())
             {
                 user = new User();
-                user.UserId= Convert.ToInt32(reader["UserId"]); 
-                user.Password = reader["Password"].ToString();
+                user.UserId= Convert.ToInt32(reader["UserId"]);      
+                user.HashedPassword = reader["HashedPassword"].ToString();
+               
+                
                 Position position = Position.Undefined;
                 if(Enum.TryParse(reader["Position"].ToString(),out position))               
-                    user.Position = position;               
+                    user.Position = position; 
+                return user;
             }
-            return user;
+            return null;
         }
         
     }

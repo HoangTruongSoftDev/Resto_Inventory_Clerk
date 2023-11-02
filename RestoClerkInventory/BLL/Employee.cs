@@ -6,7 +6,7 @@ using System.Web;
 
 namespace RestoClerkInventory.BLL
 {
-
+    
     public class Employee
     {
         private User user;
@@ -37,8 +37,6 @@ namespace RestoClerkInventory.BLL
         public void UpdateEmployee(Employee employee) => EmployeeDB.UpdateRecord(employee);
         public void DeleteEmployee(Employee employee) => EmployeeDB.DeleteRecord(employee);
 
-        //public List<Employee> GetAllEmployees() => EmployeeDB.SelectAllRecords();
-
         public Employee GetEmployeeById(int employeeId) => EmployeeDB.SelectRecordById(employeeId);
         public List<Employee> GetEmployeesByFirstName(string firstName) => EmployeeDB.SelectRecordsByFirstName(firstName);
         public List<Employee> GetEmployeesByLastName(string lastName) => EmployeeDB.SelectRecordsByLastName(lastName);
@@ -53,4 +51,3 @@ namespace RestoClerkInventory.BLL
         }
     }
 }
-//test

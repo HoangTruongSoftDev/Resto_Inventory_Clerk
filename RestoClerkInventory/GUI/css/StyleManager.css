@@ -1,0 +1,81 @@
+﻿/* StyleManager.css */
+
+
+/*It will give table look*/
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/*This will give styling to Main Title*/
+.auto-style4 {
+    text-align: center;
+    font-size: xx-large;
+    color: #000;
+    font-family: arial;
+    background-color: lightgray;
+}
+
+/*This will give padding between table data*/
+table td {
+    padding: 10px;
+}
+
+/*This will give styling to "Results"*/
+.auto-style3 {
+    color: #000;
+    font-family: arial;
+    text-align: center;
+    font-weight: bold;
+    font-size: x-large;
+    width: 1230px;
+    background-color: lightgray;
+    text-decoration: underline;
+    padding: 5px;
+}
+
+.auto-style18 {
+    width: 386px;
+    text-decoration: underline;
+}
+
+.auto-style19 {
+    width: 400px;
+    text-align: center;
+}
+
+button {
+    width: 181px;
+    height: 181px;
+}
+
+#ButtonExitManager {
+    padding: 5px;
+    font-size: 18px;
+    background-color: #ff6347;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+    #ButtonExitManager:hover {
+        background-color: #ff0000;
+    }
+
+
+.button-style {
+    width: 200px;
+    height: 30px;
+    border: 1px solid #000;
+}
+
+
+.dropdown-style {
+    width: 200px;
+    padding: 5px;
+    font-size: 16px;
+    border: 1px solid #000;
+    background-color: lightgray;
+}

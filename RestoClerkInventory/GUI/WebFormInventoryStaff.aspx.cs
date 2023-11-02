@@ -36,8 +36,17 @@ namespace RestoClerkInventory.GUI
                 Inventory inventory = new Inventory();
                 int itemID = Convert.ToInt32(TextBoxSearch.Text);
                 inventories = inventory.GetInventoryByItemID(itemID);
-                GridViewInventory.DataSource = inventories;
-                GridViewInventory.DataBind();
+                if (inventories.Count == 0)
+                {
+                    MessageBox.Show("Item not found");
+                    TextBoxSearch.Text = "";
+                    return;
+                }
+                else
+                {
+                    GridViewInventory.DataSource = inventories;
+                    GridViewInventory.DataBind();
+                }
             }
             else if (DropDownListSearch.SelectedItem.Text == "Item Name")
             {

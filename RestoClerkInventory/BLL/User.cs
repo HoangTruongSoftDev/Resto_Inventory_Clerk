@@ -6,13 +6,14 @@ using System.Web;
 using RestoClerkInventory.ENUM;
 using RestoClerkInventory.DAL;
 using System.Windows.Forms;
+using RestoClerkInventory.SERVICE;
 
 namespace RestoClerkInventory.BLL
 {
     public class User
     {
         private int userId;
-        private string password;
+        private string hashedPassword;
         private Position position;
 
         public int UserId
@@ -20,10 +21,10 @@ namespace RestoClerkInventory.BLL
             get { return this.userId; }
             set { this.userId = value; }
         }
-        public string Password 
+        public string HashedPassword 
         {
-            get { return this.password; }
-            set { this.password = value; }
+            get { return this.hashedPassword; }
+            set { this.hashedPassword = value; }
         }
         public Position Position { get { return this.position; } set { this.position = value; } }
 
@@ -38,20 +39,17 @@ namespace RestoClerkInventory.BLL
         public List<User> GetUsersByPosition() => UserDB.SelectRecordsByPosition();
         
         public override bool Equals(object obj)
-        {
-            
+        {      
             if (!(obj.GetType() == typeof(User)))
                 return false;
             User user = (User)obj;
             if (this.UserId == user.UserId)
                 return true;
-            return false;
-            
-            
+            return false;         
         }
         public override string ToString()
         {
-            return $"User ID: {this.UserId}\nPassword: {this.Password}\nPosition: {this.Position.ToString()}";
+            return $"User ID: {this.UserId}\nHashedPassword: {this.HashedPassword}\nPosition: {this.Position.ToString()}";
         }
     }
 }

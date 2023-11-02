@@ -28,7 +28,6 @@ namespace RestoClerkInventory.GUI
                 DropDownListSearchPosition.Items.Add(Position.Staff.ToString());
 
             }
-
         }
 
         protected void ButtonSave_Click(object sender, EventArgs e)
@@ -81,20 +80,18 @@ namespace RestoClerkInventory.GUI
                 return;
             }
 
-
-
             User user = new User();
-            List<User> listAllUsers = user.GetAllUsers();
             user = user.GetUserById(Convert.ToInt32(TextBoxEmployeeId.Text.Trim()));
 
-            if (listAllUsers.Contains(user))
+            if (user != null)
             {
-                MessageBox.Show("This user already exist!", "Error!!!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("This user already exist!", "Error!!!", MessageBoxButtons.OK, MessageBoxIcon.Error);               
                 return;
             }
+            
             user = new User();
             user.UserId = Convert.ToInt32(TextBoxEmployeeId.Text.Trim());
-            user.Password = TextBoxPassword.Text.Trim();
+            user.HashedPassword = SecurityService.HashPassword(TextBoxPassword.Text.Trim());
 
             Position position = new Position();
             if (Enum.TryParse(DropDownListPosition.SelectedValue, out position))
@@ -104,16 +101,25 @@ namespace RestoClerkInventory.GUI
             employee.User = user;
             employee.FirstName = TextBoxFirstName.Text.Trim();
             employee.LastName = TextBoxLastName.Text.Trim();
+
+            var list = (from emp in employee.GetAllEmployeesJoinForeignTable()
+                       where emp.Email == TextBoxEmail.Text
+                       select emp).ToList();
+            if (list.Any())
+            {
+                MessageBox.Show("This email already exist!", "Error!!!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                TextBoxEmail.Text = string.Empty;
+                return;
+            }
             employee.Email = TextBoxEmail.Text.Trim();
 
 
             user.InsertUser(user);
             employee.InsertEmployee(employee);
             MessageBox.Show("Save Employee Successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-
-
-
+            ButtonDelete.Enabled = false;
+            ButtonUpdate.Enabled = false;
+            Service.ClearAllTextBoxes(this);
         }
 
         protected void DropDownListSearch_SelectedIndexChanged(object sender, EventArgs e)
@@ -161,6 +167,7 @@ namespace RestoClerkInventory.GUI
             TextBoxEmployeeId.ReadOnly = false;
             ButtonDelete.Enabled = false;
             ButtonUpdate.Enabled = false;
+            ButtonSave.Enabled = true;
         }
 
         protected void ButtonUpdate_Click(object sender, EventArgs e)
@@ -207,16 +214,17 @@ namespace RestoClerkInventory.GUI
 
             if (!Validator.IsValidPassword(TextBoxPassword.Text.Trim()))
             {
-                string messagePassword = (TextBoxPassword.Text.Trim() == string.Empty) ? "Missing Password!!!" : "Invalid Password";
-                MessageBox.Show(messagePassword, "Error!!!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Invalid Password", "Error!!!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 TextBoxPassword.Text = string.Empty;
                 TextBoxPassword.Focus();
                 return;
             }
 
             User user = new User();
+            user = user.GetUserById(Convert.ToInt32(TextBoxEmployeeId.Text.Trim()));
             user.UserId = Convert.ToInt32(TextBoxEmployeeId.Text.Trim());
-            user.Password = TextBoxPassword.Text.Trim();
+            if (!string.IsNullOrEmpty(TextBoxPassword.Text))
+                user.HashedPassword = SecurityService.HashPassword(TextBoxPassword.Text.Trim());
 
             Position position = new Position();
             if (Enum.TryParse(DropDownListPosition.SelectedValue, out position))
@@ -226,6 +234,15 @@ namespace RestoClerkInventory.GUI
             employee.User = user;
             employee.FirstName = TextBoxFirstName.Text.Trim();
             employee.LastName = TextBoxLastName.Text.Trim();
+            var list = (from emp in employee.GetAllEmployeesJoinForeignTable()
+                        where emp.Email == TextBoxEmail.Text
+                        select emp).ToList();
+            if (list.Any())
+            {
+                MessageBox.Show("This email already exist!", "Error!!!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                TextBoxEmail.Text = string.Empty;
+                return;
+            }
             employee.Email = TextBoxEmail.Text.Trim();
 
 
@@ -251,7 +268,7 @@ namespace RestoClerkInventory.GUI
                 emp.LastName,
                 emp.Email,
                 emp.User.Position,
-                emp.User.Password
+                emp.User.HashedPassword
             }).ToList();
             GridViewEmployee.DataBind();
         }
@@ -275,6 +292,7 @@ namespace RestoClerkInventory.GUI
             }
             else
                 MessageBox.Show("Fail Deleting Employee", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+           
 
         }
 
@@ -289,6 +307,7 @@ namespace RestoClerkInventory.GUI
             TextBoxEmployeeId.ReadOnly = true;
             ButtonDelete.Enabled = true;
             ButtonUpdate.Enabled = true;
+            ButtonSave.Enabled = false;
         }
 
         protected void ImageButtonSearch_Click(object sender, ImageClickEventArgs e)
@@ -319,8 +338,7 @@ namespace RestoClerkInventory.GUI
                         emp.FirstName,
                         emp.LastName,
                         emp.Email,
-                        emp.User.Position,
-                        emp.User.Password
+                        emp.User.Position
                     }).ToList();
                     GridViewEmployee.DataBind();
                     break;
@@ -342,8 +360,7 @@ namespace RestoClerkInventory.GUI
                             emp.FirstName,
                             emp.LastName,
                             emp.Email,
-                            emp.User.Position,
-                            emp.User.Password
+                            emp.User.Position
                         });
                         GridViewEmployee.DataBind();
                     }
@@ -375,8 +392,7 @@ namespace RestoClerkInventory.GUI
                             emp.FirstName,
                             emp.LastName,
                             emp.Email,
-                            emp.User.Position,
-                            emp.User.Password
+                            emp.User.Position
                         });
                         GridViewEmployee.DataBind();
                     }
@@ -408,8 +424,7 @@ namespace RestoClerkInventory.GUI
                             emp.FirstName,
                             emp.LastName,
                             emp.Email,
-                            emp.User.Position,
-                            emp.User.Password
+                            emp.User.Position
                         });
                         GridViewEmployee.DataBind();
                     }
@@ -441,17 +456,14 @@ namespace RestoClerkInventory.GUI
                             emp.FirstName,
                             emp.LastName,
                             emp.Email,
-                            emp.User.Position,
-                            emp.User.Password
+                            emp.User.Position
                         });
                         GridViewEmployee.DataBind();
                     }
                     break;
                 default:
                     MessageBox.Show("There is something wrong", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
                     break;
-
             }
         }
 
@@ -461,6 +473,11 @@ namespace RestoClerkInventory.GUI
             string typePassword = (TextBoxPassword.Attributes["type"] == "password") ? "text" : "password";
             ImageButtonPassword.ImageUrl = imagePassword;
             TextBoxPassword.Attributes["type"] = typePassword;
+        }
+
+        protected void ButtonLogOut_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("WebFormLogin.aspx");
         }
     }
 }
