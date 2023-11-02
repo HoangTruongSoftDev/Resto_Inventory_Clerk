@@ -16,16 +16,11 @@ namespace RestoClerkInventory.DAL
         public static void SaveItems(Manager mngr)
         {  
             SqlConnection conn = Service.GetDBConnection();         //connect DB
-
-
             try
             {
                 //creating and customizing an object of SqlCommand
-
                 SqlCommand cmdInsert = new SqlCommand();
                 cmdInsert.Connection = conn;
-
-
                 cmdInsert.CommandText = "INSERT INTO Inventories (ItemID,Name,Quantity,UnitPrice,UnitOfMeasure)" +
                     " VALUES(@ItemID,@Name,@Quantity,@UnitPrice,@UnitOfMeasure)";
 
@@ -34,8 +29,6 @@ namespace RestoClerkInventory.DAL
                 cmdInsert.Parameters.AddWithValue("@Quantity", mngr.Quantity);
                 cmdInsert.Parameters.AddWithValue("@UnitPrice", mngr.UnitPrice);
                 cmdInsert.Parameters.AddWithValue("@UnitOfMeasure", mngr.UnitOfMeasure);
-
-
                 cmdInsert.ExecuteNonQuery();            //Excute the inserted query
             }
             catch (SqlException ex)
@@ -50,17 +43,56 @@ namespace RestoClerkInventory.DAL
 
         }
 
-        //public static bool IsDuplicateId(int id)
-        //{
-        //    Manager manager = new Manager();
-        //    manager = SelectRecordsByItemID(id);
-        //    if (manager != null)
-        //    {
-        //        return true;
-        //    }
-        //    return false;
-        //}
+        public static void UpdateItem(Manager mngr)
+        {
+            SqlConnection conn = Service.GetDBConnection();
+            try
+            {
+                SqlCommand cmdUpdate = new SqlCommand();
+                cmdUpdate.Connection = conn;
+                cmdUpdate.CommandText = "UPDATE Inventories " +
+                    "SET Name = @Name, Quantity = @Quantity, UnitPrice = @UnitPrice, UnitOfMeasure = @UnitOfMeasure " +
+                    "WHERE ItemID = @ItemID";
 
+                cmdUpdate.Parameters.AddWithValue("@ItemID", mngr.ItemID);
+                cmdUpdate.Parameters.AddWithValue("@Name", mngr.Name);
+                cmdUpdate.Parameters.AddWithValue("@Quantity", mngr.Quantity);
+                cmdUpdate.Parameters.AddWithValue("@UnitPrice", mngr.UnitPrice);
+                cmdUpdate.Parameters.AddWithValue("@UnitOfMeasure", mngr.UnitOfMeasure);
+                cmdUpdate.ExecuteNonQuery();
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+                conn.Dispose();
+            }
+        }
+
+        public static void DeleteItem(Manager mngr) 
+        {
+            SqlConnection conn = Service.GetDBConnection();
+            try
+            {
+                SqlCommand cmdDelete = new SqlCommand();
+                cmdDelete.Connection = conn;
+                cmdDelete.CommandText = "DELETE FROM Inventories WHERE ItemID = @ItemID";
+                cmdDelete.Parameters.AddWithValue("@ItemID", mngr.ItemID);
+                cmdDelete.ExecuteNonQuery();
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+                conn.Dispose();
+            }
+        }
         public static bool IsDuplicateId(int id)
         {
             List<Manager> managerList = SelectRecordsByItemID(id);

@@ -26,16 +26,12 @@ namespace RestoClerkInventory.GUI
                 DropDownListSearchByManager.Items.Add("Item Name");
             }
             ButtonConsumedManager.Enabled = false;
-            //ImageButtonSearch.Enabled = false;
             TextBoxQuantityConsumedManager.Enabled = false;
             TextBoxTotalPriceManager.Enabled = false;
-            //ButtonSaveManager.Enabled = false;
-
-
-
         }
 
-        public bool AreAllValidFields() {
+        public bool AreAllValidFieldsForSave()
+        {
 
             Manager manager = new Manager();
 
@@ -49,7 +45,7 @@ namespace RestoClerkInventory.GUI
                 MessageBox.Show("Id must be numeric!", "Invalid ID", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 TextBoxItemIdManager.Text = string.Empty;
                 TextBoxItemIdManager.Focus();
-                return false;                        
+                return false;
             }
 
             // ID should not be Duplicate
@@ -111,7 +107,8 @@ namespace RestoClerkInventory.GUI
         protected void ButtonSave_Click(object sender, EventArgs e)
         {
             Manager manager = new Manager();
-            if (!AreAllValidFields())
+
+            if (!AreAllValidFieldsForSave())
             {
                 return;
             }
@@ -124,15 +121,11 @@ namespace RestoClerkInventory.GUI
 
             manager.SaveInventoryItem(manager);
             Service.ClearAllTextBoxes(this);
-            MessageBox.Show("Item has been saved successfully", "Confirmation", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-
-
+            MessageBox.Show("Item has been saved successfully!", "Confirmation", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         protected void ButtonClear_Click(object sender, EventArgs e)
         {
-            //ButtonClearManager.Enabled = false;
 
             Service.ClearAllTextBoxes(this);
             GridViewInventoryByManager.DataSource = null;
@@ -143,16 +136,100 @@ namespace RestoClerkInventory.GUI
 
         }
 
+        public bool AreAllValidFieldsForUpdate()
+        {
+
+            Manager manager = new Manager();
+
+
+            string input = "";
+            input = TextBoxItemIdManager.Text.Trim();
+
+            // ID should be Numeric
+            if (!ValidatorManager.IsValidId(input))
+            {
+                MessageBox.Show("Id must be numeric!", "Invalid ID", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                TextBoxItemIdManager.Text = string.Empty;
+                TextBoxItemIdManager.Focus();
+                return false;
+            }
+
+            // Item Name should be not be Empty and should be String
+            input = TextBoxItemNameManager.Text.Trim();
+            if (!ValidatorManager.IsValidName(input))
+            {
+                MessageBox.Show("Unit of measure should only consist alphabets!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                TextBoxItemNameManager.Text = string.Empty;
+                TextBoxItemNameManager.Focus();
+                return false;
+            }
+
+
+            // Quantity should be Numeric
+            input = TextBoxQuantityManager.Text.Trim();
+            if (!ValidatorManager.IsValidNumeric(input))
+            {
+                MessageBox.Show("Quantity should be numeric!", "Invalid Quantity", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                TextBoxQuantityManager.Text = string.Empty;
+                TextBoxQuantityManager.Focus();
+                return false;
+            }
+
+            // Unit Price should be Numeric
+            input = TextBoxUnitPriceManager.Text.Trim();
+            if (!ValidatorManager.IsValidNumeric(input))
+            {
+                MessageBox.Show("Unit Price should be numeric!", "Invalid Unit Price", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                TextBoxUnitPriceManager.Text = string.Empty;
+                TextBoxUnitPriceManager.Focus();
+                return false;
+            }
+
+            // Unit of Measure should not be empty and should be String
+            input = TextBoxUnitOfMeasureManager.Text.Trim();
+            if (!ValidatorManager.IsValidName(input))
+            {
+                MessageBox.Show("Unit of measure should only consist alphabets!", "Invalid Unit Measure", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                TextBoxUnitOfMeasureManager.Text = string.Empty;
+                TextBoxUnitOfMeasureManager.Focus();
+                return false;
+            }
+
+            return true;
+
+        }
+
         protected void ButtonUpdate_Click(object sender, EventArgs e)
         {
-            ButtonUpdateManager.Enabled = false;
+            TextBoxItemIdManager.Enabled = false;
+
+            Manager manager = new Manager();
+
+            if (!AreAllValidFieldsForUpdate())
+            {
+                return;
+            }
+
+            manager.ItemID = Convert.ToInt32(TextBoxItemIdManager.Text.Trim());
+            manager.Name = TextBoxItemNameManager.Text.Trim();
+            manager.Quantity = Convert.ToInt32(TextBoxQuantityManager.Text.Trim());
+            manager.UnitPrice = Convert.ToDecimal(TextBoxUnitPriceManager.Text.Trim());
+            manager.UnitOfMeasure = TextBoxUnitOfMeasureManager.Text.Trim();
+
+            manager.UpdateInventoryItem(manager);
+
+            Service.ClearAllTextBoxes(this);
+            MessageBox.Show("Item has been updated successfully!", "Confirmation", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
         }
 
         protected void ButtonDelete_Click(object sender, EventArgs e)
         {
-            ButtonDeleteManager.Enabled = false;
-
+            Manager manager = new Manager();
+            manager.ItemID = Convert.ToInt32(TextBoxItemIdManager.Text.Trim());
+            manager.DeleteInventoryItem(manager);
+            Service.ClearAllTextBoxes(this);
+            MessageBox.Show("Item has been deleted successfully!", "Confirmation", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         protected void ButtonListAll_Click(object sender, EventArgs e)
@@ -163,10 +240,40 @@ namespace RestoClerkInventory.GUI
             TextBoxQuantityConsumedManager.Text = "";
         }
 
-   
+        public bool IsValidQuantityConsumed()
+        {
+            TextBoxQuantityConsumedManager.Enabled = true;
+            ButtonConsumedManager.Enabled = true;
+            string input = "";
+            input = TextBoxQuantityConsumedManager.Text.Trim();
+            if (TextBoxQuantityConsumedManager.Text == "")
+            {
+                MessageBox.Show("Consumed Quantity should not be empty!", "Invalid Quantity Consumed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                TextBoxQuantityConsumedManager.Text = string.Empty;
+                TextBoxQuantityConsumedManager.Focus();
+                return false;
+            }
+            if (!ValidatorManager.IsValidId(input))
+            {
+                MessageBox.Show("Consumed Quantity should be numeric!", "Invalid Quantity Consumed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                TextBoxQuantityConsumedManager.Text = string.Empty;
+                TextBoxQuantityConsumedManager.Focus();
+                return false;
+                
+            }
+            return true;
+
+        }
 
         protected void ButtonConsumedManager_Click(object sender, EventArgs e)
         {
+
+            if (!IsValidQuantityConsumed())
+            {
+                return;
+            }
+            
+
             int consumeQuantity = Convert.ToInt32(TextBoxQuantityConsumedManager.Text);
             int currentQuantity;
             if (consumeQuantity > Convert.ToInt32(TextBoxQuantityManager.Text))
@@ -200,43 +307,40 @@ namespace RestoClerkInventory.GUI
             TextBoxQuantityConsumedManager.Text = "";
 
             ButtonConsumedManager.Enabled = false;
+            MessageBox.Show("Quantity of this item has been updated!", "Quantity Update", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
 
         }
 
         protected void TextBoxQuantityConsumedManager_TextChanged(object sender, EventArgs e)
         {
-            ButtonConsumedManager.Enabled = true;
+            //ButtonConsumedManager.Enabled = true;
 
         }
 
-        // FIX THE CODES
-
-
-        public bool IsValidQuantityConsumed(){
-
+        public bool IsValidSeach()
+        {
+            TextBoxSearchByManager.Enabled = true;
             string input = "";
-            input = TextBoxQuantityConsumedManager.Text.Trim();
-            if (TextBoxQuantityConsumedManager.Text != "")
+            input = TextBoxSearchByManager.Text.Trim();
+            if (TextBoxSearchByManager.Text == "")
             {
-                MessageBox.Show("Consumed Quantity should not be empty", "Invalid Quantity Consumed", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                TextBoxQuantityConsumedManager.Text = string.Empty;
-                TextBoxQuantityConsumedManager.Focus();
+                MessageBox.Show("Search Value should not be empty!", "Invalid Search", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                TextBoxSearchByManager.Text = string.Empty;
+                TextBoxSearchByManager.Focus();
                 return false;
             }
-
-            // && !ValidatorManager.IsValidNumeric(input)
-
             return true;
-
         }
 
+        protected void ImageButtonSearch_Click(object sender, ImageClickEventArgs e)
+        {
 
 
-            protected void ImageButtonSearch_Click(object sender, ImageClickEventArgs e)
+            if (!IsValidSeach())
             {
-           
-
-            IsValidQuantityConsumed();
+                return;
+            }
 
             List<Manager> managerList = new List<Manager>();
 
@@ -306,16 +410,15 @@ namespace RestoClerkInventory.GUI
 
             GridViewInventoryByManager.DataSource = null;
             GridViewInventoryByManager.DataBind();
-            TextBoxQuantityConsumedManager.Enabled = true;
-            TextBoxTotalPriceManager.ReadOnly = true;
+
             TextBoxItemIdManager.ReadOnly = true;
+            TextBoxTotalPriceManager.ReadOnly = true;
+            TextBoxQuantityConsumedManager.Enabled = true;
+            ButtonUpdateManager.Enabled = true;
+            ButtonDeleteManager.Enabled = true;
+            ButtonConsumedManager.Enabled = true;
         }
 
-        protected void ButtonExitManager_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("WebFormLogin.aspx");
-
-        }
 
         protected void TextBoxSearchByManager_TextChanged(object sender, EventArgs e)
         {
@@ -359,8 +462,6 @@ namespace RestoClerkInventory.GUI
                         }
                     }
 
-
-
                     // Bind the updated inventory to the GridView
                     GridViewInventoryByManager.DataSource = InventoryDB.GetAllItems().OrderBy(item => item.ItemID);
                     GridViewInventoryByManager.DataBind();
@@ -379,6 +480,15 @@ namespace RestoClerkInventory.GUI
             }
         }
 
+        protected void ButtonExitManager_Click(object sender, EventArgs e)
+        {
+            var result = MessageBox.Show("Are you sure you want to exit?",
+              "Confirm",
+              MessageBoxButtons.YesNo,
+              MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+                Response.Redirect("WebFormLogin.aspx");
 
+        }
     }
 }

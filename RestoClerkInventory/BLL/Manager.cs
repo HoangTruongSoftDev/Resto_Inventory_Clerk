@@ -44,15 +44,13 @@ namespace RestoClerkInventory.BLL
             set { this.unitOfMeasure = value; }
         }
 
+        public void SaveInventoryItem(Manager mngr) => ManagerDB.SaveItems(mngr);        
+        public void UpdateInventoryItem(Manager mngr) => ManagerDB.UpdateItem(mngr);
+        public void DeleteInventoryItem(Manager mngr) => ManagerDB.DeleteItem(mngr);
         public List<Manager> GetAllItemRecords() => ManagerDB.GetAllItems();
-
         public List<Manager> GetInventoryByItemID(int itemID) => ManagerDB.SelectRecordsByItemID(itemID);
         public List<Manager> GetInventoryByItemName(string name) => ManagerDB.SelectRecordsByItemName(name);
-
         public void UpdateInventoryForConsumedQ(int itemID, int quantity) => ManagerDB.UpdateRecordForConsumedQuantity(itemID, quantity);
-
-        public void SaveInventoryItem(Manager mngr) => ManagerDB.SaveItems(mngr);
-
         public bool getDuplicateItemId(int id) => ManagerDB.IsDuplicateId(id);
 
 
