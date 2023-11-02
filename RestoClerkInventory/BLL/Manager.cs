@@ -51,6 +51,10 @@ namespace RestoClerkInventory.BLL
 
         public void UpdateInventoryForConsumedQ(int itemID, int quantity) => ManagerDB.UpdateRecordForConsumedQuantity(itemID, quantity);
 
+        public void SaveInventoryItem(Manager mngr) => ManagerDB.SaveItems(mngr);
+
+        public bool getDuplicateItemId(int id) => ManagerDB.IsDuplicateId(id);
+
 
 
     }

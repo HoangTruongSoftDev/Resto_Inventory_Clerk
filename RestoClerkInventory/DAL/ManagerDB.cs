@@ -6,12 +6,74 @@ using System.Linq;
 using System.Web;
 using System.Windows.Forms;
 using RestoClerkInventory.SERVICE;
+using System.Net;
 
 
 namespace RestoClerkInventory.DAL
 {
     public class ManagerDB
     {
+        public static void SaveItems(Manager mngr)
+        {  
+            SqlConnection conn = Service.GetDBConnection();         //connect DB
+
+
+            try
+            {
+                //creating and customizing an object of SqlCommand
+
+                SqlCommand cmdInsert = new SqlCommand();
+                cmdInsert.Connection = conn;
+
+
+                cmdInsert.CommandText = "INSERT INTO Inventories (ItemID,Name,Quantity,UnitPrice,UnitOfMeasure)" +
+                    " VALUES(@ItemID,@Name,@Quantity,@UnitPrice,@UnitOfMeasure)";
+
+                cmdInsert.Parameters.AddWithValue("@ItemID", mngr.ItemID);
+                cmdInsert.Parameters.AddWithValue("@Name", mngr.Name);
+                cmdInsert.Parameters.AddWithValue("@Quantity", mngr.Quantity);
+                cmdInsert.Parameters.AddWithValue("@UnitPrice", mngr.UnitPrice);
+                cmdInsert.Parameters.AddWithValue("@UnitOfMeasure", mngr.UnitOfMeasure);
+
+
+                cmdInsert.ExecuteNonQuery();            //Excute the inserted query
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+            finally                          //clean the code and close database
+            {
+                conn.Close();                //close DB
+                conn.Dispose();              //perform the job right away, will dispose the garbage
+            }
+
+        }
+
+        //public static bool IsDuplicateId(int id)
+        //{
+        //    Manager manager = new Manager();
+        //    manager = SelectRecordsByItemID(id);
+        //    if (manager != null)
+        //    {
+        //        return true;
+        //    }
+        //    return false;
+        //}
+
+        public static bool IsDuplicateId(int id)
+        {
+            List<Manager> managerList = SelectRecordsByItemID(id);
+
+            if (managerList.Count > 0)
+            {
+                return true; // Duplicate ID found
+            }
+
+            return false; // No duplicate ID found
+        }
+
+
 
         public static List<Manager> GetAllItems()
         {
@@ -54,10 +116,7 @@ namespace RestoClerkInventory.DAL
                 });
 
             }
-            else
-            {
-                MessageBox.Show("Item not found");
-            }
+            
             return managerList;
         }
 
@@ -80,10 +139,7 @@ namespace RestoClerkInventory.DAL
                     UnitOfMeasure = reader["UnitOfMeasure"].ToString()
                 });
             }
-            else
-            {
-                MessageBox.Show("Item not found");
-            }
+            
             return managerList;
         }
 
@@ -102,6 +158,8 @@ namespace RestoClerkInventory.DAL
                 MessageBox.Show(ex.Message);
             }
         }
+
+        
 
     }
 }
