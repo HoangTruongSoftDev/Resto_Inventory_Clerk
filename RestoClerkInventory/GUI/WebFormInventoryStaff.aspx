@@ -165,7 +165,7 @@
                         <asp:TextBox ID="TextBoxConsume" runat="server"  OnTextChanged="TextBoxConsume_TextChanged" AutoPostBack="True"></asp:TextBox>
                     </td>
                     <td class="auto-style7">
-                        <asp:Button ID="ButtonConsume" runat="server" Text="Commit" OnClick="ButtonConsume_Click" />
+                        <asp:Button ID="ButtonConsume" runat="server" Text="Consume" OnClick="ButtonConsume_Click" />
                     </td>
                     <td>
                         &nbsp;</td>

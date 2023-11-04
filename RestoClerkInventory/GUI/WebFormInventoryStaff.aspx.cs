@@ -21,7 +21,7 @@ namespace RestoClerkInventory.GUI
 
             ButtonConsume.Enabled = false;
             ImageButtonSearch.Enabled = false;
-            TextBoxConsume.Enabled = false;
+
 
         }
 
@@ -75,7 +75,7 @@ namespace RestoClerkInventory.GUI
 
             GridViewInventory.DataSource = null;
             GridViewInventory.DataBind();
-            TextBoxConsume.Enabled = true;
+            ButtonConsume.Enabled = true;
 
         }
 
@@ -87,7 +87,7 @@ namespace RestoClerkInventory.GUI
             {
                 MessageBox.Show("Consume quantity cannot be greater than current quantity");
                 TextBoxConsume.Text = "";
-                TextBoxConsume.Enabled = true;
+
                 return;
             }
             else
