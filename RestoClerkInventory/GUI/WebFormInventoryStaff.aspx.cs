@@ -7,6 +7,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Windows.Forms;
 
+
+
 namespace RestoClerkInventory.GUI
 {
     public partial class WebFormInventoryStaff : System.Web.UI.Page
@@ -27,6 +29,8 @@ namespace RestoClerkInventory.GUI
 
         protected void ImageButtonSearch_Click(object sender, ImageClickEventArgs e)
         {
+            GridViewInventoryHistory.DataSource = null;
+            GridViewInventoryHistory.DataBind();
 
             List<Inventory> inventories = new List<Inventory>();
 
@@ -60,24 +64,69 @@ namespace RestoClerkInventory.GUI
 
         }
 
-        protected void GridViewInventory_SelectedIndexChanged(object sender, EventArgs e)
+        protected void GridViewInventory_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            TextBoxItemId.Text = GridViewInventory.SelectedRow.Cells[0].Text.ToString();
-            TextBoxName.Text = GridViewInventory.SelectedRow.Cells[1].Text.ToString();
-            TextBoxQuantity.Text = GridViewInventory.SelectedRow.Cells[2].Text.ToString();
-            TextBoxUnitPrice.Text = GridViewInventory.SelectedRow.Cells[3].Text.ToString();
-            TextBoxMeasure.Text = GridViewInventory.SelectedRow.Cells[4].Text.ToString();
+            int rowIndex = Convert.ToInt32(e.CommandArgument);
 
-            int quantity = int.Parse(GridViewInventory.SelectedRow.Cells[2].Text);
-            decimal unitPrice = decimal.Parse(GridViewInventory.SelectedRow.Cells[3].Text);
-            decimal totalPrice = quantity * unitPrice;
-            TextBoxTotalPrice.Text = totalPrice.ToString();
+            if (e.CommandName == "Select")
+            {
+                GridViewRow selectedRow = GridViewInventory.Rows[rowIndex]; 
 
-            GridViewInventory.DataSource = null;
-            GridViewInventory.DataBind();
-            ButtonConsume.Enabled = true;
+                if (selectedRow != null)
+                {
+                    TextBoxItemId.Text = selectedRow.Cells[0].Text;
+                    TextBoxName.Text = selectedRow.Cells[1].Text;
+                    TextBoxQuantity.Text = selectedRow.Cells[2].Text;
+                    TextBoxUnitPrice.Text = selectedRow.Cells[3].Text;
+                    TextBoxMeasure.Text = selectedRow.Cells[4].Text;
 
+                    int quantity = int.Parse(selectedRow.Cells[2].Text);
+                    decimal unitPrice = decimal.Parse(selectedRow.Cells[3].Text);
+                    decimal totalPrice = quantity * unitPrice;
+                    TextBoxTotalPrice.Text = totalPrice.ToString();
+
+                    GridViewInventory.DataSource = null;
+                    GridViewInventory.DataBind();
+                    ButtonConsume.Enabled = true;
+                }
+            }
+            else if (e.CommandName == "Show")
+            {
+
+                GridViewRow selectedRow = GridViewInventory.Rows[rowIndex];
+                if (selectedRow != null)
+                {
+                    int itemID = Convert.ToInt32(selectedRow.Cells[0].Text);
+                    InventoryHistory inventoryHistory = new InventoryHistory();
+                    List<InventoryHistory> inventoryHistories = inventoryHistory.GetInventoryHistoryByItemID(itemID);
+                    GridViewInventoryHistory.DataSource = inventoryHistories;
+                    GridViewInventoryHistory.DataBind();
+                }
+            }
         }
+
+
+
+        //protected void GridViewInventory_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+
+        //            TextBoxItemId.Text = GridViewInventory.SelectedRow.Cells[0].Text.ToString();
+        //            TextBoxName.Text = GridViewInventory.SelectedRow.Cells[1].Text.ToString();
+        //            TextBoxQuantity.Text = GridViewInventory.SelectedRow.Cells[2].Text.ToString();
+        //            TextBoxUnitPrice.Text = GridViewInventory.SelectedRow.Cells[3].Text.ToString();
+        //            TextBoxMeasure.Text = GridViewInventory.SelectedRow.Cells[4].Text.ToString();
+
+        //            int quantity = int.Parse(GridViewInventory.SelectedRow.Cells[2].Text);
+        //            decimal unitPrice = decimal.Parse(GridViewInventory.SelectedRow.Cells[3].Text);
+        //            decimal totalPrice = quantity * unitPrice;
+        //            TextBoxTotalPrice.Text = totalPrice.ToString();
+
+        //            GridViewInventory.DataSource = null;
+        //            GridViewInventory.DataBind();
+        //            ButtonConsume.Enabled = true;
+
+
+        //}
 
         protected void ButtonConsume_Click(object sender, EventArgs e)
         {
@@ -99,6 +148,13 @@ namespace RestoClerkInventory.GUI
 
             Inventory inventory = new Inventory();
             inventory.UpdateInventory(itemID, currentQuantity);
+
+            InventoryHistory inventoryHistory = new InventoryHistory();
+            inventoryHistory.ItemID = itemID;
+            inventoryHistory.CurrentQuantity = currentQuantity;
+            inventoryHistory.PreviousQuantity = Convert.ToInt32(TextBoxQuantity.Text);
+            inventoryHistory.DateTimestamp = DateTime.Now;
+            inventoryHistory.AddInventoryHistoryItem(inventoryHistory);
 
             List<Inventory> inventories = new List<Inventory>();
             inventories = inventory.GetInventoryByItemID(itemID);
@@ -131,5 +187,6 @@ namespace RestoClerkInventory.GUI
         {
             Response.Redirect("WebFormLogin.aspx");
         }
+
     }
 }

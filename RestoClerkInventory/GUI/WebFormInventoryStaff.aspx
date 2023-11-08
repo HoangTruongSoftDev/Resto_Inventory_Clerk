@@ -206,7 +206,7 @@
                 </tr>
             </table>
         </div>
-        <asp:GridView ID="GridViewInventory" runat="server" AutoGenerateColumns="False" Width="1235px" OnSelectedIndexChanged="GridViewInventory_SelectedIndexChanged">
+        <asp:GridView ID="GridViewInventory" runat="server" AutoGenerateColumns="False" Width="1158px" EnableSelection="true" OnRowCommand="GridViewInventory_RowCommand">
             <Columns>
                 <asp:BoundField DataField="ItemId" HeaderText="Item ID" ReadOnly="True" />
                 <asp:BoundField DataField="Name" HeaderText="Name" ReadOnly="True" />
@@ -214,7 +214,11 @@
                 <asp:BoundField DataField="UnitPrice" HeaderText="Unit Price" ReadOnly="True" />
                 <asp:BoundField DataField="UnitOfMeasure" HeaderText="Unit of Measure" ReadOnly="True" />
                 <asp:ButtonField ButtonType="Button" Text="Select" CommandName="Select" />
+                <asp:ButtonField ButtonType="Button" CommandName="Show" Text="Show History" />
             </Columns>
+        </asp:GridView>
+        <br />
+        <asp:GridView ID="GridViewInventoryHistory" runat="server">
         </asp:GridView>
     </form>
 </body>
