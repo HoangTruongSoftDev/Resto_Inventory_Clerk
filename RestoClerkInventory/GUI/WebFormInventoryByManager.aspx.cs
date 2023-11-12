@@ -18,6 +18,7 @@ namespace RestoClerkInventory.GUI
 {
     public partial class WebFormInventoryByManager : System.Web.UI.Page
     {
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -210,13 +211,23 @@ namespace RestoClerkInventory.GUI
                 return;
             }
 
+
             manager.ItemID = Convert.ToInt32(TextBoxItemIdManager.Text.Trim());
             manager.Name = TextBoxItemNameManager.Text.Trim();
             manager.Quantity = Convert.ToInt32(TextBoxQuantityManager.Text.Trim());
             manager.UnitPrice = Convert.ToDecimal(TextBoxUnitPriceManager.Text.Trim());
             manager.UnitOfMeasure = TextBoxUnitOfMeasureManager.Text.Trim();
 
-            manager.UpdateInventoryItem(manager);
+            int previousQuantity = InventoryDB.GetLastQuantity(manager.ItemID);
+
+            manager.UpdateInventoryItem(manager);        
+
+            InventoryHistory inventoryHistory = new InventoryHistory();
+            inventoryHistory.ItemID = manager.ItemID;
+            inventoryHistory.CurrentQuantity = manager.Quantity;
+            inventoryHistory.PreviousQuantity = previousQuantity;
+            inventoryHistory.DateTimestamp = DateTime.Now;
+            inventoryHistory.AddInventoryHistoryItem(inventoryHistory);
 
             Service.ClearAllTextBoxes(this);
             MessageBox.Show("Item has been updated successfully!", "Confirmation", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -293,6 +304,13 @@ namespace RestoClerkInventory.GUI
             Manager manager = new Manager();
             manager.UpdateInventoryForConsumedQ(itemID, currentQuantity);
 
+            InventoryHistory inventoryHistory = new InventoryHistory();
+            inventoryHistory.ItemID = itemID;
+            inventoryHistory.CurrentQuantity = currentQuantity;
+            inventoryHistory.PreviousQuantity = Convert.ToInt32(TextBoxQuantityManager.Text);
+            inventoryHistory.DateTimestamp = DateTime.Now;
+            inventoryHistory.AddInventoryHistoryItem(inventoryHistory);
+
             List<Manager> mngList = new List<Manager>();
             mngList = manager.GetInventoryByItemID(itemID);
             GridViewInventoryByManager.DataSource = mngList;
@@ -335,6 +353,9 @@ namespace RestoClerkInventory.GUI
 
         protected void ImageButtonSearch_Click(object sender, ImageClickEventArgs e)
         {
+
+            GridViewInventoryHistory.DataSource = null;
+            GridViewInventoryHistory.DataBind();
 
 
             if (!IsValidSeach())
@@ -392,32 +413,88 @@ namespace RestoClerkInventory.GUI
             TextBoxSearchByManager.Text = "";
         }
 
-        protected void GridViewInventory_SelectedIndexChanged(object sender, EventArgs e)
+
+        protected void GridViewInventory_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            //GridViewInventoryByManager.Enabled = false;
+            int rowIndex = Convert.ToInt32(e.CommandArgument);
 
-            TextBoxItemIdManager.Text = GridViewInventoryByManager.SelectedRow.Cells[0].Text.ToString();
-            TextBoxItemNameManager.Text = GridViewInventoryByManager.SelectedRow.Cells[1].Text.ToString();
-            TextBoxQuantityManager.Text = GridViewInventoryByManager.SelectedRow.Cells[2].Text.ToString();
-            TextBoxUnitPriceManager.Text = GridViewInventoryByManager.SelectedRow.Cells[3].Text.ToString();
-            TextBoxUnitOfMeasureManager.Text = GridViewInventoryByManager.SelectedRow.Cells[4].Text.ToString();
+            if (e.CommandName == "Select")
+            {
+                GridViewInventoryHistory.DataSource = null;
+                GridViewInventoryHistory.DataBind();
+
+                
+
+                GridViewRow selectedRow = GridViewInventoryByManager.Rows[rowIndex];
+
+                if (selectedRow != null)
+                {
+                    TextBoxItemIdManager.Text = selectedRow.Cells[0].Text;
+                    TextBoxItemNameManager.Text = selectedRow.Cells[1].Text;
+                    TextBoxQuantityManager.Text = selectedRow.Cells[2].Text;
+                    TextBoxUnitPriceManager.Text = selectedRow.Cells[3].Text;
+                    TextBoxUnitOfMeasureManager.Text = selectedRow.Cells[4].Text;
+
+                    int quantity = int.Parse(selectedRow.Cells[2].Text);
+                    decimal unitPrice = decimal.Parse(selectedRow.Cells[3].Text);
+                    decimal totalPrice = quantity * unitPrice;
+                    TextBoxTotalPriceManager.Text = totalPrice.ToString();
+
+                    GridViewInventoryByManager.DataSource = null;
+                    GridViewInventoryByManager.DataBind();
+
+                    TextBoxItemIdManager.ReadOnly = true;
+                    TextBoxTotalPriceManager.ReadOnly = true;
+                    TextBoxQuantityConsumedManager.Enabled = true;
+                    ButtonUpdateManager.Enabled = true;
+                    ButtonDeleteManager.Enabled = true;
+                    ButtonConsumedManager.Enabled = true;
 
 
-            int quantity = int.Parse(GridViewInventoryByManager.SelectedRow.Cells[2].Text);
-            decimal unitPrice = decimal.Parse(GridViewInventoryByManager.SelectedRow.Cells[3].Text);
-            decimal totalPrice = quantity * unitPrice;
-            TextBoxTotalPriceManager.Text = totalPrice.ToString();
 
-            GridViewInventoryByManager.DataSource = null;
-            GridViewInventoryByManager.DataBind();
+                }
+            }
+            else if (e.CommandName == "Show")
+            {
 
-            TextBoxItemIdManager.ReadOnly = true;
-            TextBoxTotalPriceManager.ReadOnly = true;
-            TextBoxQuantityConsumedManager.Enabled = true;
-            ButtonUpdateManager.Enabled = true;
-            ButtonDeleteManager.Enabled = true;
-            ButtonConsumedManager.Enabled = true;
+                GridViewRow selectedRow = GridViewInventoryByManager.Rows[rowIndex];
+                if (selectedRow != null)
+                {
+                    int itemID = Convert.ToInt32(selectedRow.Cells[0].Text);
+                    InventoryHistory inventoryHistory = new InventoryHistory();
+                    List<InventoryHistory> inventoryHistories = inventoryHistory.GetInventoryHistoryByItemID(itemID);
+                    GridViewInventoryHistory.DataSource = inventoryHistories.OrderByDescending(x => x.DateTimestamp).ToList();
+                    GridViewInventoryHistory.DataBind();
+                }
+            }
         }
+
+        //protected void GridViewInventory_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    //GridViewInventoryByManager.Enabled = false;
+
+        //    TextBoxItemIdManager.Text = GridViewInventoryByManager.SelectedRow.Cells[0].Text.ToString();
+        //    TextBoxItemNameManager.Text = GridViewInventoryByManager.SelectedRow.Cells[1].Text.ToString();
+        //    TextBoxQuantityManager.Text = GridViewInventoryByManager.SelectedRow.Cells[2].Text.ToString();
+        //    TextBoxUnitPriceManager.Text = GridViewInventoryByManager.SelectedRow.Cells[3].Text.ToString();
+        //    TextBoxUnitOfMeasureManager.Text = GridViewInventoryByManager.SelectedRow.Cells[4].Text.ToString();
+
+
+        //    int quantity = int.Parse(GridViewInventoryByManager.SelectedRow.Cells[2].Text);
+        //    decimal unitPrice = decimal.Parse(GridViewInventoryByManager.SelectedRow.Cells[3].Text);
+        //    decimal totalPrice = quantity * unitPrice;
+        //    TextBoxTotalPriceManager.Text = totalPrice.ToString();
+
+        //    GridViewInventoryByManager.DataSource = null;
+        //    GridViewInventoryByManager.DataBind();
+
+        //    TextBoxItemIdManager.ReadOnly = true;
+        //    TextBoxTotalPriceManager.ReadOnly = true;
+        //    TextBoxQuantityConsumedManager.Enabled = true;
+        //    ButtonUpdateManager.Enabled = true;
+        //    ButtonDeleteManager.Enabled = true;
+        //    ButtonConsumedManager.Enabled = true;
+        //}
 
 
         protected void TextBoxSearchByManager_TextChanged(object sender, EventArgs e)

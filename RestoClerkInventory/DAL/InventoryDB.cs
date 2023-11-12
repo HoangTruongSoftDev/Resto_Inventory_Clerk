@@ -117,5 +117,24 @@ namespace RestoClerkInventory.DAL
             }
             return inventories;
         }
+
+        public static int GetLastQuantity(int itemID)
+        {
+            int lastQuantity = 0;
+            SqlConnection conn = Service.GetDBConnection();
+            SqlCommand cmdSelectByItemId = new SqlCommand("SELECT Quantity FROM Inventories WHERE ItemId = @ItemID", conn);
+            cmdSelectByItemId.Parameters.AddWithValue("@ItemID", itemID);
+            SqlDataReader reader = cmdSelectByItemId.ExecuteReader();
+            if (reader.Read())
+            {
+                lastQuantity = Convert.ToInt32(reader["Quantity"]);
+            }
+            else
+            {
+                MessageBox.Show("Item not found");
+            }
+
+            return lastQuantity;
+        }
     }
 }

@@ -176,7 +176,7 @@
             &nbsp;
         </p>
 
-        <asp:GridView ID="GridViewInventoryByManager" runat="server" AutoGenerateColumns="False" Width="1235px" OnSelectedIndexChanged="GridViewInventory_SelectedIndexChanged">
+        <asp:GridView ID="GridViewInventoryByManager" runat="server" AutoGenerateColumns="False" Width="1235px" OnRowCommand="GridViewInventory_RowCommand">
             <Columns>
                 <asp:BoundField DataField="ItemId" HeaderText="Item ID" ReadOnly="True" />
                 <asp:BoundField DataField="Name" HeaderText="Item Name" ReadOnly="True" />
@@ -184,10 +184,13 @@
                 <asp:BoundField DataField="UnitPrice" HeaderText="Unit Price" ReadOnly="True" />
                 <asp:BoundField DataField="UnitOfMeasure" HeaderText="Unit of Measure" ReadOnly="True" />
                 <asp:ButtonField ButtonType="Button" Text="Select" CommandName="Select" />
+                <asp:ButtonField ButtonType="Button" CommandName="Show" Text="Show History" />
             </Columns>
         </asp:GridView>
         <p>
             &nbsp;
+            <asp:GridView ID="GridViewInventoryHistory" runat="server" Width="1016px">
+            </asp:GridView>
         </p>
         <p>
             <asp:Button ID="ButtonExitManager" runat="server" Height="27px" OnClick="ButtonExitManager_Click" Text="Log Out" CssClass="button-style" />

@@ -70,6 +70,9 @@ namespace RestoClerkInventory.GUI
 
             if (e.CommandName == "Select")
             {
+                GridViewInventoryHistory.DataSource = null;
+                GridViewInventoryHistory.DataBind();
+
                 GridViewRow selectedRow = GridViewInventory.Rows[rowIndex]; 
 
                 if (selectedRow != null)
@@ -99,7 +102,7 @@ namespace RestoClerkInventory.GUI
                     int itemID = Convert.ToInt32(selectedRow.Cells[0].Text);
                     InventoryHistory inventoryHistory = new InventoryHistory();
                     List<InventoryHistory> inventoryHistories = inventoryHistory.GetInventoryHistoryByItemID(itemID);
-                    GridViewInventoryHistory.DataSource = inventoryHistories;
+                    GridViewInventoryHistory.DataSource = inventoryHistories.OrderByDescending(x => x.DateTimestamp).ToList();
                     GridViewInventoryHistory.DataBind();
                 }
             }

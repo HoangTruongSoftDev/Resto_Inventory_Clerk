@@ -218,7 +218,7 @@
             </Columns>
         </asp:GridView>
         <br />
-        <asp:GridView ID="GridViewInventoryHistory" runat="server">
+        <asp:GridView ID="GridViewInventoryHistory" runat="server" Width="881px">
         </asp:GridView>
     </form>
 </body>
