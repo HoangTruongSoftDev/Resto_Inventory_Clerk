@@ -567,5 +567,10 @@ namespace RestoClerkInventory.GUI
                 Response.Redirect("WebFormLogin.aspx");
 
         }
+
+        protected void ButtonAdvancedManagement_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("WebFormAdvancedManagement.aspx");
+        }
     }
 }

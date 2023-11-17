@@ -53,6 +53,15 @@
             width: 289px;
             text-align: center;
         }
+        .auto-style41 {
+            width: 100%;
+        }
+        .auto-style42 {
+            width: 581px;
+        }
+        .auto-style43 {
+            border: 1px solid #000;
+        }
     </style>
 </head>
 <body>
@@ -193,7 +202,16 @@
             </asp:GridView>
         </p>
         <p>
+            <table class="auto-style41">
+                <tr>
+                    <td class="auto-style42">
             <asp:Button ID="ButtonExitManager" runat="server" Height="27px" OnClick="ButtonExitManager_Click" Text="Log Out" CssClass="button-style" />
+                    </td>
+                    <td>
+            <asp:Button ID="ButtonAdvancedManagement" runat="server" Height="33px" OnClick="ButtonAdvancedManagement_Click" Text="Advanced Management" CssClass="auto-style43" BackColor="#66FF66" Font-Bold="True" Font-Size="Medium" ForeColor="Black" Width="255px" />
+                    </td>
+                </tr>
+            </table>
         </p>
         <p>
             &nbsp;
