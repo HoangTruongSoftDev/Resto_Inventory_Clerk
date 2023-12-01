@@ -99,12 +99,13 @@
             </div>
             <div class="form-section">
                 <div class="input-group">
-                    <asp:CheckBox ID="toggleSettings" runat="server" Text="Vacation Mode" CssClass="toggle-label" />
+                    <asp:CheckBox ID="toggleSettings" runat="server" Text="Vacation Mode" CssClass="toggle-label" OnCheckedChanged="toggleSettings_CheckedChanged" />
                 </div>
                 <div id="settingsPanel">
                     <div class="input-group">
                         <label for="TextBoxThresholdForOrder">Set threshold for automatically placing an order:</label>
-                        <input type="number" id="TextBoxThresholdForOrder" runat="server" />
+                        <asp:TextBox ID="TextBoxThresholdForOrder" runat="server"></asp:TextBox>
+               
                     </div>
                     <button type="button" class="commit-button" onclick="commitSettings()">Commit</button>
                 </div>
@@ -115,7 +116,7 @@
                     <label for="TextBoxThresholdForAlarm">Set threshold for Alarm:</label>
                     <asp:TextBox ID="TextBoxThresholdForAlarm" runat="server"></asp:TextBox>
                 </div>
-                <asp:Button ID="ButtonThresholdAlarm" runat="server" Text="Commit" CssClass="commit-button" />
+                <asp:Button ID="ButtonThresholdAlarm" runat="server" Text="Commit" CssClass="commit-button" OnClick="ButtonThresholdAlarm_Click" />
             </div>
         </div>
     </form>

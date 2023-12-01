@@ -25,6 +25,49 @@ namespace RestoClerkInventory.GUI
             {
                 DropDownListSearchByManager.Items.Add("Item ID");
                 DropDownListSearchByManager.Items.Add("Item Name");
+                Threshold threshold = new Threshold();
+                threshold = threshold.GetThresholdByManagerId(((User)Session["Manager"]).UserId);
+                if (threshold != null)
+                {
+                    if (threshold.ModeId == 1)
+                    {
+
+                        List<Inventory> inventories = InventoryDB.GetAllItems();
+                        foreach (Inventory currentInventory in inventories)
+                        {
+                            if (currentInventory.Quantity < threshold.ThresholdNumber)
+                            {
+                                currentInventory.Quantity = threshold.ThresholdNumber + 20;
+                                InventoryDB.UpdateRecord(currentInventory.ItemID, currentInventory.Quantity);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        bool check = false;
+                        string message = "Your items below threshold are: ";
+                        List<Inventory> inventories = InventoryDB.GetAllItems();
+                        foreach (Inventory currentInventory in inventories)
+                        {
+                            if (currentInventory.Quantity < threshold.ThresholdAlarm)
+                            {
+                                message += currentInventory.Name + " ";
+                                check = true;
+                            }
+                        }
+                        if (check)
+                        {
+                            var result = MessageBox.Show(message + "\nDo you want to place order item", "Warning!!!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                            if (result == DialogResult.Yes)
+                            {
+                                Response.Redirect("WebFormInventoryOrder.aspx");
+                            }
+                        }
+
+                    }
+                }
+                
             }
             ButtonConsumedManager.Enabled = false;
             TextBoxQuantityConsumedManager.Enabled = false;

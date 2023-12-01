@@ -1,4 +1,5 @@
 ﻿using RestoClerkInventory.BLL;
+using RestoClerkInventory.DAL;
 using RestoClerkInventory.ENUM;
 using RestoClerkInventory.SERVICE;
 using RestoClerkInventory.Validation;
@@ -69,7 +70,11 @@ namespace RestoClerkInventory.GUI
                 if (user.Position.ToString() == Position.Admin.ToString())
                     Response.Redirect("WebFormAdmin.aspx");
                 if (user.Position.ToString() == Position.Manager.ToString())
+                {
+                    Session["Manager"] = UserDB.SelectById(Convert.ToInt32(TextBoxUserId.Text.ToString()));
                     Response.Redirect("WebFormInventoryByManager.aspx");
+                }
+                    
                 if (user.Position.ToString() == Position.Staff.ToString())
                     Response.Redirect("WebFormInventoryStaff.aspx");
             }
