@@ -44,7 +44,7 @@ namespace RestoClerkInventory.GUI
             if (!ValidatorManager.IsValidId(input))
             {
                 MessageBox.Show("Id must be numeric!", "Invalid ID", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                TextBoxItemIdManager.Text = string.Empty;
+                //TextBoxItemIdManager.Text = string.Empty;
                 TextBoxItemIdManager.Focus();
                 return false;
             }
@@ -54,7 +54,7 @@ namespace RestoClerkInventory.GUI
             if (manager.getDuplicateItemId(Convert.ToInt32(input)))
             {
                 MessageBox.Show("This Item Id already exist!", "Duplicate Id", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                TextBoxItemIdManager.Text = string.Empty;
+                //TextBoxItemIdManager.Text = string.Empty;
                 TextBoxItemIdManager.Focus();
                 return false;
             }
@@ -64,8 +64,8 @@ namespace RestoClerkInventory.GUI
             input = TextBoxItemNameManager.Text.Trim();
             if (!ValidatorManager.IsValidName(input))
             {
-                MessageBox.Show("Unit of measure should only consist alphabets!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                TextBoxItemNameManager.Text = string.Empty;
+                MessageBox.Show("Item name should only consist alphabets!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //TextBoxItemNameManager.Text = string.Empty;
                 TextBoxItemNameManager.Focus();
                 return false;
             }
@@ -76,7 +76,7 @@ namespace RestoClerkInventory.GUI
             if (!ValidatorManager.IsValidNumeric(input))
             {
                 MessageBox.Show("Quantity should be numeric!", "Invalid Quantity", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                TextBoxQuantityManager.Text = string.Empty;
+                //TextBoxQuantityManager.Text = string.Empty;
                 TextBoxQuantityManager.Focus();
                 return false;
             }
@@ -86,7 +86,7 @@ namespace RestoClerkInventory.GUI
             if (!ValidatorManager.IsValidNumeric(input))
             {
                 MessageBox.Show("Unit Price should be numeric!", "Invalid Unit Price", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                TextBoxUnitPriceManager.Text = string.Empty;
+                //TextBoxUnitPriceManager.Text = string.Empty;
                 TextBoxUnitPriceManager.Focus();
                 return false;
             }
@@ -96,7 +96,7 @@ namespace RestoClerkInventory.GUI
             if (!ValidatorManager.IsValidName(input))
             {
                 MessageBox.Show("Unit of measure should only consist alphabets!", "Invalid Unit Measure", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                TextBoxUnitOfMeasureManager.Text = string.Empty;
+                //TextBoxUnitOfMeasureManager.Text = string.Empty;
                 TextBoxUnitOfMeasureManager.Focus();
                 return false;
             }
@@ -150,7 +150,7 @@ namespace RestoClerkInventory.GUI
             if (!ValidatorManager.IsValidId(input))
             {
                 MessageBox.Show("Id must be numeric!", "Invalid ID", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                TextBoxItemIdManager.Text = string.Empty;
+                //TextBoxItemIdManager.Text = string.Empty;
                 TextBoxItemIdManager.Focus();
                 return false;
             }
@@ -159,8 +159,8 @@ namespace RestoClerkInventory.GUI
             input = TextBoxItemNameManager.Text.Trim();
             if (!ValidatorManager.IsValidName(input))
             {
-                MessageBox.Show("Unit of measure should only consist alphabets!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                TextBoxItemNameManager.Text = string.Empty;
+                MessageBox.Show("Item Name should only consist alphabets!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //TextBoxItemNameManager.Text = string.Empty;
                 TextBoxItemNameManager.Focus();
                 return false;
             }
@@ -171,7 +171,7 @@ namespace RestoClerkInventory.GUI
             if (!ValidatorManager.IsValidNumeric(input))
             {
                 MessageBox.Show("Quantity should be numeric!", "Invalid Quantity", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                TextBoxQuantityManager.Text = string.Empty;
+                //TextBoxQuantityManager.Text = string.Empty;
                 TextBoxQuantityManager.Focus();
                 return false;
             }
@@ -181,7 +181,7 @@ namespace RestoClerkInventory.GUI
             if (!ValidatorManager.IsValidNumeric(input))
             {
                 MessageBox.Show("Unit Price should be numeric!", "Invalid Unit Price", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                TextBoxUnitPriceManager.Text = string.Empty;
+                //TextBoxUnitPriceManager.Text = string.Empty;
                 TextBoxUnitPriceManager.Focus();
                 return false;
             }
@@ -191,7 +191,7 @@ namespace RestoClerkInventory.GUI
             if (!ValidatorManager.IsValidName(input))
             {
                 MessageBox.Show("Unit of measure should only consist alphabets!", "Invalid Unit Measure", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                TextBoxUnitOfMeasureManager.Text = string.Empty;
+                //TextBoxUnitOfMeasureManager.Text = string.Empty;
                 TextBoxUnitOfMeasureManager.Focus();
                 return false;
             }
@@ -571,6 +571,14 @@ namespace RestoClerkInventory.GUI
         protected void ButtonAdvancedManagement_Click(object sender, EventArgs e)
         {
             Response.Redirect("WebFormAdvancedManagement.aspx");
+        }
+
+        protected void btnPlaceOrder_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("WebFormInventoryOrder.aspx");
+            MessageBox.Show("You are now in Order Window!");
+
+
         }
     }
 }

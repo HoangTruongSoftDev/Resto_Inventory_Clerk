@@ -207,6 +207,9 @@
                     <td class="auto-style42">
             <asp:Button ID="ButtonExitManager" runat="server" Height="27px" OnClick="ButtonExitManager_Click" Text="Log Out" CssClass="button-style" />
                     </td>
+                    <td class="auto-style42">
+            <asp:Button ID="btnPlaceOrder" runat="server" Height="27px" Text="Place Order" CssClass="button-style" OnClick="btnPlaceOrder_Click" />
+                    </td>
                     <td>
             <asp:Button ID="ButtonAdvancedManagement" runat="server" Height="33px" OnClick="ButtonAdvancedManagement_Click" Text="Advanced Management" CssClass="auto-style43" BackColor="#66FF66" Font-Bold="True" Font-Size="Medium" ForeColor="Black" Width="255px" />
                     </td>
