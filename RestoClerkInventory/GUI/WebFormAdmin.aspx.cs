@@ -234,21 +234,11 @@ namespace RestoClerkInventory.GUI
             employee.User = user;
             employee.FirstName = TextBoxFirstName.Text.Trim();
             employee.LastName = TextBoxLastName.Text.Trim();
-            var list = (from emp in employee.GetAllEmployeesJoinForeignTable()
-                        where emp.Email == TextBoxEmail.Text
-                        select emp).ToList();
-            if (list.Any())
-            {
-                MessageBox.Show("This email already exist!", "Error!!!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                TextBoxEmail.Text = string.Empty;
-                return;
-            }
             employee.Email = TextBoxEmail.Text.Trim();
 
 
             user.UpdateUser(user);
             employee.UpdateEmployee(employee);
-            MessageBox.Show(employee.ToString());
             MessageBox.Show("Update Employee Successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
             Service.ClearAllTextBoxes(this);
             GridViewEmployee.DataSource = null;
@@ -308,6 +298,7 @@ namespace RestoClerkInventory.GUI
             ButtonDelete.Enabled = true;
             ButtonUpdate.Enabled = true;
             ButtonSave.Enabled = false;
+            
         }
 
         protected void ImageButtonSearch_Click(object sender, ImageClickEventArgs e)

@@ -82,7 +82,6 @@ namespace RestoClerkInventory.GUI
         protected void DropDownListPosition_SelectedIndexChanged(object sender, EventArgs e)
         {
             TextBoxUserId.Attributes["placeholder"] = (DropDownListPosition.SelectedValue == Position.Admin.ToString()) ? "4-digit number" : "6-digit number";
-            Service.ClearAllTextBoxes(this);
         }
 
         protected void ButtonImage_Click(object sender, EventArgs e)
