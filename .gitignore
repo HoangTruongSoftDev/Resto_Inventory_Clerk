@@ -18,3 +18,4 @@
 /.vs
 /packages
 /RestoClerkInventory/GUI/~MOCK_DATA.json
+/RestoClerkInventory/Validation/ValidatorManager.cs
