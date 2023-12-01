@@ -39,7 +39,7 @@ namespace RestoClerkInventory.GUI
             input = TextBoxItemId.Text.Trim();
 
             // ID should be Numeric
-            if (!ValidatorManager.IsValidId(input))
+            if (!ValidatorManager.IsValidNumeric(input))
             {
                 MessageBox.Show("Id must be numeric!", "Invalid ID", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 //TextBoxItemId.Text = string.Empty;
@@ -150,7 +150,6 @@ namespace RestoClerkInventory.GUI
 
             //TextBoxQuantityConsumedManager.Text = "";
         }
-
 
         protected void GridViewItermOrdered_RowCommand(object sender, GridViewCommandEventArgs e)
         {
@@ -271,7 +270,7 @@ namespace RestoClerkInventory.GUI
             input = TextBoxItemId.Text.Trim();
 
             // ID should be Numeric
-            if (!ValidatorManager.IsValidId(input))
+            if (!ValidatorManager.IsValidNumeric(input))
             {
                 MessageBox.Show("Id must be numeric!", "Invalid ID", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 //TextBoxItemId.Text = string.Empty;

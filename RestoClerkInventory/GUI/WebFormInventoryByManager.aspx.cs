@@ -41,7 +41,7 @@ namespace RestoClerkInventory.GUI
             input = TextBoxItemIdManager.Text.Trim();
 
             // ID should be Numeric
-            if (!ValidatorManager.IsValidId(input))
+            if (!ValidatorManager.IsValidNumeric(input))
             {
                 MessageBox.Show("Id must be numeric!", "Invalid ID", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 //TextBoxItemIdManager.Text = string.Empty;
@@ -147,7 +147,7 @@ namespace RestoClerkInventory.GUI
             input = TextBoxItemIdManager.Text.Trim();
 
             // ID should be Numeric
-            if (!ValidatorManager.IsValidId(input))
+            if (!ValidatorManager.IsValidNumeric(input))
             {
                 MessageBox.Show("Id must be numeric!", "Invalid ID", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 //TextBoxItemIdManager.Text = string.Empty;
@@ -264,7 +264,7 @@ namespace RestoClerkInventory.GUI
                 TextBoxQuantityConsumedManager.Focus();
                 return false;
             }
-            if (!ValidatorManager.IsValidId(input))
+            if (!ValidatorManager.IsValidNumeric(input))
             {
                 MessageBox.Show("Consumed Quantity should be numeric!", "Invalid Quantity Consumed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 TextBoxQuantityConsumedManager.Text = string.Empty;
